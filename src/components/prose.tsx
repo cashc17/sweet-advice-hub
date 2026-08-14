@@ -252,35 +252,48 @@ function BlockView({ block }: { block: Block }) {
 
     case "do-dont":
       return (
-        <div className="my-10 grid gap-4 rounded-3xl border border-border bg-card p-6 shadow-xs sm:grid-cols-2 sm:p-8">
-          <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5 dark:bg-emerald-500/10">
-            <div className="flex items-center gap-2 font-display text-base font-semibold text-emerald-700 dark:text-emerald-400">
-              <Check className="h-5 w-5" />
-              <span>What To Do</span>
+        <div className="my-10 space-y-3">
+          {block.title ? (
+            <h4 className="font-display text-lg font-semibold text-foreground">
+              {block.title}
+            </h4>
+          ) : null}
+          <div className="grid gap-5 sm:grid-cols-2">
+            {/* 🟢 What To Do */}
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6 dark:bg-emerald-500/10">
+              <div className="flex items-center gap-2 font-display text-base font-semibold text-emerald-700 dark:text-emerald-400">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
+                  <Check className="h-3.5 w-3.5 stroke-[2.5]" />
+                </div>
+                <span>What To Do</span>
+              </div>
+              <ul className="mt-4 space-y-3">
+                {block.dos.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/90">
+                    <span className="mt-[0.45em] block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+                    <span className="flex-1">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
-              {block.dos.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
 
-          <div className="rounded-2xl border border-destructive/20 bg-destructive/5 p-5 dark:bg-destructive/10">
-            <div className="flex items-center gap-2 font-display text-base font-semibold text-destructive">
-              <X className="h-5 w-5" />
-              <span>What To Avoid</span>
+            {/* 🔴 What To Avoid */}
+            <div className="rounded-2xl border border-destructive/30 bg-destructive/5 p-6 dark:bg-destructive/10">
+              <div className="flex items-center gap-2 font-display text-base font-semibold text-destructive">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-destructive/20 text-destructive">
+                  <X className="h-3.5 w-3.5 stroke-[2.5]" />
+                </div>
+                <span>What To Avoid</span>
+              </div>
+              <ul className="mt-4 space-y-3">
+                {block.donts.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/90">
+                    <span className="mt-[0.45em] block h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
+                    <span className="flex-1">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
-              {block.donts.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       );
