@@ -40,7 +40,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [featured, ...rest] = sortedPosts;
+  const featured = sortedPosts[0]!;
+  const rest = sortedPosts.slice(1);
 
   return (
     <div>
