@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail } from "lucide-react";
 import { SITE } from "@/config/site";
 
-const title = "Contact Heartlines — Ask a Relationship Question";
+const title = `Contact ${SITE.name} — Ask a Relationship Question`;
 const description =
-  "Get in touch with the Heartlines editors: reader questions, corrections, permissions and advertising enquiries.";
+  `Get in touch with the ${SITE.name} editors: reader questions, corrections, permissions and advertising enquiries.`;
 
 export const Route = createFileRoute("/contact")({
   head: () => ({

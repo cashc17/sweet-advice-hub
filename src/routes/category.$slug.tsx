@@ -14,12 +14,12 @@ export const Route = createFileRoute("/category/$slug")({
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Topic not found — Heartlines" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: `Topic not found — ${SITE.name}` }, { name: "robots", content: "noindex" }],
       };
     }
     const { category } = loaderData;
     const url = `/category/${params.slug}`;
-    const title = `${category.title} — Heartlines`;
+    const title = `${category.title} — ${SITE.name}`;
     return {
       meta: [
         { title },

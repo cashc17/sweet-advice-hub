@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SITE } from "@/config/site";
 
-const title = "Terms of Use — Heartlines";
+const title = `Terms of Use — ${SITE.name}`;
 const description =
-  "The terms that apply when you read or share Heartlines articles, including copyright, acceptable use and liability.";
+  `The terms that apply when you read or share ${SITE.name} articles, including copyright, acceptable use and liability.`;
 
 export const Route = createFileRoute("/terms")({
   head: () => ({

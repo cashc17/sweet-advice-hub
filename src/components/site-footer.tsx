@@ -18,7 +18,7 @@ export function SiteFooter() {
             {SITE.description}
           </p>
           <p className="mt-4 text-xs text-muted-foreground">
-            Heartlines publishes general advice for a general audience. It is not therapy or
+            HeartlinesHub publishes general advice for a general audience. It is not therapy or
             medical care.
           </p>
         </div>

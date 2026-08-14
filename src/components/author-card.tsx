@@ -12,7 +12,7 @@ interface AuthorCardProps {
 export function AuthorCard({
   authorName = SITE.author,
   authorRole = "Editorial Team & Relationship Specialists",
-  authorBio = "Heartlines publishes honest, grounded love advice written to help couples and singles build healthier, more enduring connections.",
+  authorBio = "HeartlinesHub publishes honest, grounded love advice written to help couples and singles build healthier, more enduring connections.",
   authorAvatar,
 }: AuthorCardProps) {
   const initials = authorName

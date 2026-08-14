@@ -1,6 +1,6 @@
-# Heartlines — Modern Relationship Advice & Editorial Publishing Platform
+# HeartlinesHub — Modern Relationship Advice & Editorial Publishing Platform
 
-> **Heartlines** is a modern, high-performance editorial blog platform built for relationship, dating, and love advice. Engineered with a focus on **Enterprise SEO**, **Google Search Console optimization**, **Google AdSense monetization**, and a **magazine-grade reading experience**.
+> **HeartlinesHub** is a modern, high-performance editorial blog platform built for relationship, dating, and love advice. Engineered with a focus on **Enterprise SEO**, **Google Search Console optimization**, **Google AdSense monetization**, and a **magazine-grade reading experience**.
 
 ---
 
@@ -153,12 +153,12 @@ export const GOOGLE_SITE_VERIFICATION = "your-google-verification-token";
 
 // 4. Site Brand & Domain Metadata
 export const SITE = {
-  name: "Heartlines",
+  name: "HeartlinesHub",
   url: "https://heartlines.blog",
   tagline: "Honest love advice, written for real relationships",
-  description: "Heartlines publishes calm, practical love and relationship advice...",
+  description: "HeartlinesHub publishes calm, practical love and relationship advice...",
   email: "hello@heartlines.blog",
-  author: "The Heartlines Editors",
+  author: "The HeartlinesHub Editors",
   logo: "/favicon.svg",
 } as const;
 ```
@@ -190,7 +190,7 @@ import postImage from "@/assets/your-cover-image.jpg";
     "Summarize your partner's point before stating your counter."
   ],
   keywords: ["relationship advice", "healthy communication", "dating tips"],
-  authorName: "The Heartlines Editors",
+  authorName: "The HeartlinesHub Editors",
   authorRole: "Relationship Specialists",
   body: [
     { t: "p", text: "Introduction paragraph..." },
@@ -211,7 +211,7 @@ import postImage from "@/assets/your-cover-image.jpg";
     { 
       t: "quote", 
       text: "Being understood is not the same as being agreed with.", 
-      author: "Heartlines Editorial" 
+      author: "HeartlinesHub Editorial" 
     }
   ]
 }
@@ -264,5 +264,5 @@ Linked automatically in `<head>` via [`src/routes/__root.tsx`](src/routes/__root
 
 ## 📄 License & Credits
 
-- Designed & engineered for **Heartlines**.
+- Designed & engineered for **HeartlinesHub**.
 - Connected with [Lovable](https://lovable.dev).

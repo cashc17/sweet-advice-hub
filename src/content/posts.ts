@@ -72,7 +72,7 @@ export const posts: Post[] = [
       "Take structured 20-minute timeouts with a clear agreement on when you will resume.",
     ],
     keywords: ["relationship communication", "couples conflict", "active listening", "healthy fighting", "marriage advice"],
-    authorName: "The Heartlines Editors",
+    authorName: "The HeartlinesHub Editors",
     authorRole: "Relationship & Communication Specialists",
     body: [
       {

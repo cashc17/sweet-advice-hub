@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE } from "@/config/site";
 
-const title = "Disclaimer — Heartlines Love Advice";
+const title = `Disclaimer — ${SITE.name} Love Advice`;
 const description =
-  "Heartlines publishes general relationship advice for information only. It is not therapy, medical advice, or crisis support.";
+  `${SITE.name} publishes general relationship advice for information only. It is not therapy, medical advice, or crisis support.`;
 
 export const Route = createFileRoute("/disclaimer")({
   head: () => ({

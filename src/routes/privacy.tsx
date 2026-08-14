@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SITE } from "@/config/site";
 
-const title = "Privacy Policy — Heartlines";
+const title = `Privacy Policy — ${SITE.name}`;
 const description =
-  "How Heartlines handles data, cookies, analytics and advertising, including Google AdSense and third-party vendor cookies.";
+  `How ${SITE.name} handles data, cookies, analytics and advertising, including Google AdSense and third-party vendor cookies.`;
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({

@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdSlot } from "@/components/ad-slot";
 import { PostCard } from "@/components/post-card";
-import { ADSENSE_SLOTS } from "@/config/site";
+import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { sortedPosts } from "@/content/posts";
 
-const title = "All Love Advice Articles — Heartlines";
+const title = `All Love Advice Articles — ${SITE.name}`;
 const description =
-  "Every Heartlines article in one place: dating, communication, rebuilding trust, breakups, long distance and long-term intimacy.";
+  `Every ${SITE.name} article in one place: dating, communication, rebuilding trust, breakups, long distance and long-term intimacy.`;
 
 export const Route = createFileRoute("/blog/")({
   head: () => ({

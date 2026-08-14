@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://heartlines.blog/sitemap.xml
+Sitemap: https://heartlineshub.com/sitemap.xml

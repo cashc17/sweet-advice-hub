@@ -7,7 +7,7 @@ import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { categories } from "@/content/categories";
 import { sortedPosts } from "@/content/posts";
 
-const title = "Heartlines — Honest Love & Relationship Advice";
+const title = `${SITE.name} — Honest Love & Relationship Advice`;
 const description =
   "Calm, practical love advice on dating, communication, trust, breakups and long-term intimacy. New relationship articles every month.";
 
@@ -71,7 +71,7 @@ function Index() {
                 to="/about"
                 className="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
               >
-                About Heartlines
+                About {SITE.name}
               </Link>
             </div>
           </div>

@@ -1,6 +1,6 @@
-# 📖 Heartlines Blog Publishing & SEO Master Guide
+# 📖 HeartlinesHub Blog Publishing & SEO Master Guide
 
-Welcome to the **Heartlines** blog content engine. This guide contains everything you need to write, style, optimize for **Google Search Console (SEO)**, and monetize with **Google AdSense**.
+Welcome to the **HeartlinesHub** blog content engine. This guide contains everything you need to write, style, optimize for **Google Search Console (SEO)**, and monetize with **Google AdSense**.
 
 ---
 
@@ -165,7 +165,7 @@ Can be added as a block or defined in `takeaways` property on the Post:
 
 ## 4. SEO Optimization Master Checklist
 
-Every article in Heartlines comes automatically armed with enterprise SEO architecture:
+Every article in HeartlinesHub comes automatically armed with enterprise SEO architecture:
 
 - [x] **Single `<h1>` Title Tag:** Automatically sets the article headline as the only H1.
 - [x] **Schema.org Structured Data (`BlogPosting` & `BreadcrumbList`):** Enables Google Rich Snippets, Author badges, Star ratings, and Knowledge Graph inclusion.
@@ -219,7 +219,7 @@ Copy and paste this template into `src/content/posts.ts`:
 ```typescript
 {
   slug: "your-article-url-slug",
-  title: "Your SEO Catchy Article Title — Heartlines",
+  title: "Your SEO Catchy Article Title — HeartlinesHub",
   headline: "Your Main Headline Displayed to Readers",
   description: "A compelling 150-160 character meta description containing your target keywords for Google Search results.",
   category: "relationships", // Options: "dating" | "relationships" | "breakups" | "self-love"
@@ -234,9 +234,9 @@ Copy and paste this template into `src/content/posts.ts`:
     "dating tips",
     "how to stop fighting"
   ],
-  authorName: "The Heartlines Editors",
+  authorName: "The HeartlinesHub Editors",
   authorRole: "Relationship & Communication Specialists",
-  authorBio: "Heartlines publishes honest, grounded love advice written to help couples and singles build healthier, more enduring connections.",
+  authorBio: "HeartlinesHub publishes honest, grounded love advice written to help couples and singles build healthier, more enduring connections.",
   takeaways: [
     "Key takeaway point #1",
     "Key takeaway point #2",

@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE } from "@/config/site";
 
-const title = "About Heartlines — Who Writes This Love Advice";
+const title = `About ${SITE.name} — Who Writes This Love Advice`;
 const description =
-  "Heartlines is a small editorial blog about love and relationships. Here is who writes it, how articles are researched, and what we will never do.";
+  `${SITE.name} is a small editorial blog about love and relationships. Here is who writes it, how articles are researched, and what we will never do.`;
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-      <h1 className="font-display text-4xl font-semibold">About Heartlines</h1>
+      <h1 className="font-display text-4xl font-semibold">About {SITE.name}</h1>
       <p className="mt-6 leading-[1.8] text-foreground/85">
         {SITE.name} is an independent blog about love: the beginning of it, the maintenance of it,
         and occasionally the end of it. Everything here is written for people in ordinary
@@ -55,7 +55,7 @@ function About() {
 
       <h2 className="mt-10 font-display text-2xl font-semibold">How the site is funded</h2>
       <p className="mt-4 leading-[1.8] text-foreground/85">
-        Heartlines is free to read and supported by advertising. Ads are clearly labelled and never
+        {SITE.name} is free to read and supported by advertising. Ads are clearly labelled and never
         influence what we write or which topics we cover. Read more in our{" "}
         <Link to="/privacy" className="text-primary underline">
           privacy policy

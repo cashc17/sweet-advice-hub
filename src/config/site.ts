@@ -25,12 +25,12 @@ export const ADSENSE_SLOTS = {
 export const GOOGLE_SITE_VERIFICATION = "";
 
 export const SITE = {
-  name: "Heartlines",
-  url: "https://heartlines.blog",
+  name: "HeartlinesHub",
+  url: "https://heartlineshub.com",
   tagline: "Honest love advice, written for real relationships",
   description:
-    "Heartlines publishes calm, practical love and relationship advice on dating, trust, breakups, and keeping long-term love alive.",
-  email: "hello@heartlines.blog",
-  author: "The Heartlines Editors",
+    "HeartlinesHub publishes calm, practical love and relationship advice on dating, trust, breakups, and keeping long-term love alive.",
+  email: "hello@heartlineshub.com",
+  author: "The HeartlinesHub Editors",
   logo: "/favicon.svg",
 } as const;

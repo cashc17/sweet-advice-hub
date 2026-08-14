@@ -19,7 +19,7 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Article not found — Heartlines" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: `Article not found — ${SITE.name}` }, { name: "robots", content: "noindex" }],
       };
     }
     const { post } = loaderData;
@@ -225,7 +225,7 @@ function PostPage() {
           />
 
           <footer className="mt-6 rounded-2xl border border-border bg-secondary/40 p-6 text-sm text-muted-foreground">
-            Heartlines offers general advice, not therapy or medical care. If you are in distress or
+            {SITE.name} offers general advice, not therapy or medical care. If you are in distress or
             feel unsafe, please contact a qualified professional or a support service in your
             country.
           </footer>
