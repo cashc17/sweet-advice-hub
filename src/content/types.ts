@@ -9,18 +9,31 @@ export type Block =
       t: "callout";
       title?: string;
       text: string;
-      variant?: "tip" | "warning" | "info" | "highlight";
+      variant?: "tip" | "warning" | "info" | "highlight" | "custom";
+      icon?: string; // Lucide icon name or emoji (e.g. "Heart", "Sparkles", "ShieldCheck", "💡", "❤️")
     }
   | {
       t: "image";
       src: string;
       alt: string;
+      title?: string;
+      subtitle?: string;
       caption?: string;
+      credit?: string;
       width?: number;
       height?: number;
     }
   | { t: "takeaways"; items: string[]; title?: string }
   | { t: "do-dont"; dos: string[]; donts: string[]; title?: string }
+  | {
+      t: "faq";
+      title?: string;
+      items: { q: string; a: string }[];
+    }
+  | {
+      t: "icon-list";
+      items: { icon?: string; title: string; text: string }[];
+    }
   | { t: "divider" };
 
 export interface Post {
@@ -41,5 +54,6 @@ export interface Post {
   authorBio?: string;
   authorAvatar?: string;
   keywords?: string[];
+  faqs?: { q: string; a: string }[];
   body: Block[];
 }

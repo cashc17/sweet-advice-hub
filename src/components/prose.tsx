@@ -1,8 +1,57 @@
-import type { Block } from "@/content/posts";
-import { Check, Info, Lightbulb, TriangleAlert, X } from "lucide-react";
+import type { Block } from "@/content/types";
+import {
+  AlertCircle,
+  Bookmark,
+  Check,
+  Flame,
+  Heart,
+  HelpCircle,
+  Info,
+  Lightbulb,
+  MessageCircle,
+  ShieldAlert,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  TriangleAlert,
+  X,
+} from "lucide-react";
+import { FaqSection } from "./faq-section";
 import { KeyTakeaways } from "./key-takeaways";
 
-/** Renders article body blocks with an ad unit injected after a given block index. */
+const ICON_MAP: Record<string, React.ElementType> = {
+  Heart,
+  Sparkles,
+  Lightbulb,
+  Info,
+  TriangleAlert,
+  AlertCircle,
+  ShieldCheck,
+  ShieldAlert,
+  Flame,
+  Bookmark,
+  Star,
+  MessageCircle,
+  Check,
+  HelpCircle,
+};
+
+function renderCustomIcon(iconName?: string, defaultFallback = Lightbulb) {
+  if (!iconName) {
+    const Fallback = defaultFallback;
+    return <Fallback className="h-5 w-5" aria-hidden="true" />;
+  }
+
+  // Check if icon is an emoji (contains non-ascii or emoji characters)
+  if (/\p{Extended_Pictographic}/u.test(iconName)) {
+    return <span className="text-lg leading-none" aria-hidden="true">{iconName}</span>;
+  }
+
+  const IconComponent = ICON_MAP[iconName] || defaultFallback;
+  return <IconComponent className="h-5 w-5" aria-hidden="true" />;
+}
+
+/** Renders article body blocks with responsive typography and dynamic text scaling */
 export function Prose({
   blocks,
   adAfter,
@@ -13,7 +62,7 @@ export function Prose({
   ad?: React.ReactNode;
 }) {
   return (
-    <div className="mt-8 space-y-6">
+    <div id="article-prose-root" className="article-prose mt-8 space-y-6">
       {blocks.map((block, i) => (
         <div key={i}>
           <BlockView block={block} />
@@ -36,9 +85,17 @@ function BlockView({ block }: { block: Block }) {
       return (
         <h2
           id={id}
-          className="mt-12 mb-4 scroll-mt-20 font-display text-2xl sm:text-3xl font-semibold leading-tight text-foreground"
+          className="scroll-mt-24 font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl pt-6 first:pt-0"
         >
-          {block.text}
+          <a href={`#${id}`} className="group inline-flex items-center gap-2 hover:text-primary">
+            <span>{block.text}</span>
+            <span
+              className="text-sm font-normal text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
+              aria-hidden="true"
+            >
+              #
+            </span>
+          </a>
         </h2>
       );
     }
@@ -53,182 +110,205 @@ function BlockView({ block }: { block: Block }) {
       return (
         <h3
           id={id}
-          className="mt-8 mb-3 scroll-mt-20 font-display text-xl sm:text-2xl font-semibold leading-snug text-foreground"
+          className="scroll-mt-24 font-display text-xl font-semibold text-foreground sm:text-2xl pt-4"
         >
           {block.text}
         </h3>
       );
     }
 
-    case "p": {
+    case "p":
       return (
-        <p
-          className={`text-[1.05rem] sm:text-[1.1rem] leading-[1.8] text-foreground/90 ${
-            block.className || ""
-          }`}
-        >
+        <p className={block.className || "text-base leading-[1.85] text-foreground/90 sm:text-lg sm:leading-[1.9]"}>
           {block.text}
         </p>
       );
-    }
 
-    case "ul": {
+    case "ul":
       return (
-        <ul className="my-5 space-y-2.5 pl-6">
-          {block.items.map((item, idx) => (
+        <ul className="space-y-3.5 pl-6">
+          {block.items.map((item, i) => (
             <li
-              key={idx}
-              className="list-disc text-[1.03rem] leading-[1.75] text-foreground/85 marker:text-primary"
+              key={i}
+              className="list-disc text-base leading-relaxed text-foreground/85 marker:text-primary sm:text-lg"
             >
               {item}
             </li>
           ))}
         </ul>
       );
-    }
 
-    case "ol": {
+    case "ol":
       return (
-        <ol className="my-5 space-y-2.5 pl-6">
-          {block.items.map((item, idx) => (
+        <ol className="space-y-3.5 pl-6">
+          {block.items.map((item, i) => (
             <li
-              key={idx}
-              className="list-decimal text-[1.03rem] leading-[1.75] text-foreground/85 marker:font-semibold marker:text-primary"
+              key={i}
+              className="list-decimal text-base leading-relaxed text-foreground/85 marker:font-semibold marker:text-primary sm:text-lg"
             >
               {item}
             </li>
           ))}
         </ol>
       );
-    }
 
-    case "quote": {
+    case "quote":
       return (
-        <figure className="my-8 rounded-xl border-l-4 border-primary bg-primary/5 py-4 px-6">
-          <blockquote className="font-display text-lg sm:text-xl italic leading-relaxed text-foreground/95">
-            “{block.text}”
+        <figure className="my-8 rounded-2xl border-l-4 border-primary bg-secondary/30 p-6 shadow-2xs sm:p-8">
+          <blockquote className="font-display text-lg italic leading-relaxed text-foreground sm:text-xl">
+            &ldquo;{block.text}&rdquo;
           </blockquote>
           {block.author ? (
-            <figcaption className="mt-2 text-sm font-medium text-muted-foreground not-italic">
+            <figcaption className="mt-4 text-xs font-semibold uppercase tracking-wider text-primary">
               — {block.author}
             </figcaption>
           ) : null}
         </figure>
       );
-    }
 
     case "callout": {
       const variant = block.variant || "tip";
       const config = {
         tip: {
-          icon: <Lightbulb className="h-5 w-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />,
-          container: "border-emerald-500/30 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100",
-          titleColor: "text-emerald-700 dark:text-emerald-300",
-          defaultTitle: "Pro Tip",
+          border: "border-emerald-500/30 bg-emerald-500/5 text-emerald-950 dark:text-emerald-100",
+          iconColor: "text-emerald-600 dark:text-emerald-400",
+          defaultIcon: Lightbulb,
         },
         warning: {
-          icon: <TriangleAlert className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />,
-          container: "border-amber-500/30 bg-amber-500/10 text-amber-950 dark:text-amber-100",
-          titleColor: "text-amber-800 dark:text-amber-300",
-          defaultTitle: "Important Note",
+          border: "border-amber-500/30 bg-amber-500/5 text-amber-950 dark:text-amber-100",
+          iconColor: "text-amber-600 dark:text-amber-400",
+          defaultIcon: TriangleAlert,
         },
         info: {
-          icon: <Info className="h-5 w-5 text-sky-600 dark:text-sky-400 flex-shrink-0" />,
-          container: "border-sky-500/30 bg-sky-500/10 text-sky-950 dark:text-sky-100",
-          titleColor: "text-sky-800 dark:text-sky-300",
-          defaultTitle: "Did You Know?",
+          border: "border-blue-500/30 bg-blue-500/5 text-blue-950 dark:text-blue-100",
+          iconColor: "text-blue-600 dark:text-blue-400",
+          defaultIcon: Info,
         },
         highlight: {
-          icon: <Lightbulb className="h-5 w-5 text-primary flex-shrink-0" />,
-          container: "border-primary/30 bg-primary/10 text-foreground",
-          titleColor: "text-primary",
-          defaultTitle: "Key Takeaway",
+          border: "border-primary/30 bg-primary/5 text-foreground",
+          iconColor: "text-primary",
+          defaultIcon: Sparkles,
+        },
+        custom: {
+          border: "border-primary/30 bg-card text-foreground shadow-xs",
+          iconColor: "text-primary",
+          defaultIcon: Star,
         },
       }[variant];
 
       return (
-        <div className={`my-7 rounded-2xl border p-5 sm:p-6 ${config.container}`}>
-          <div className="flex items-center gap-2.5">
-            {config.icon}
-            <h4 className={`font-semibold text-sm sm:text-base ${config.titleColor}`}>
-              {block.title || config.defaultTitle}
-            </h4>
+        <aside className={`my-8 flex gap-4 rounded-2xl border p-5 sm:p-6 ${config.border}`}>
+          <div className={`shrink-0 pt-0.5 ${config.iconColor}`}>
+            {renderCustomIcon(block.icon, config.defaultIcon)}
           </div>
-          <p className="mt-2 text-sm sm:text-base leading-relaxed opacity-90 pl-7">{block.text}</p>
-        </div>
+          <div>
+            {block.title ? (
+              <h4 className="font-display text-base font-semibold sm:text-lg">{block.title}</h4>
+            ) : null}
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {block.text}
+            </p>
+          </div>
+        </aside>
       );
     }
 
-    case "image": {
+    case "image":
       return (
-        <figure className="my-8 overflow-hidden rounded-2xl border border-border bg-card">
+        <figure className="my-10 overflow-hidden rounded-3xl border border-border/80 bg-card shadow-xs">
+          {block.title ? (
+            <div className="border-b border-border/60 bg-muted/30 px-5 py-3 sm:px-6">
+              <h4 className="font-display text-base font-semibold text-foreground sm:text-lg">
+                {block.title}
+              </h4>
+              {block.subtitle ? (
+                <p className="mt-0.5 text-xs text-muted-foreground">{block.subtitle}</p>
+              ) : null}
+            </div>
+          ) : null}
+
           <img
             src={block.src}
             alt={block.alt}
             width={block.width || 1200}
             height={block.height || 800}
-            className="w-full object-cover max-h-[500px]"
             loading="lazy"
+            className="w-full object-cover"
           />
-          {block.caption ? (
-            <figcaption className="p-3 text-center text-xs sm:text-sm text-muted-foreground border-t border-border/60 bg-muted/30">
-              {block.caption}
+
+          {block.caption || block.credit ? (
+            <figcaption className="flex flex-col justify-between gap-1 border-t border-border/60 bg-card/50 px-5 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6">
+              {block.caption ? <span>{block.caption}</span> : <span />}
+              {block.credit ? (
+                <span className="shrink-0 italic opacity-80">Photo: {block.credit}</span>
+              ) : null}
             </figcaption>
           ) : null}
         </figure>
       );
-    }
 
-    case "takeaways": {
-      return <KeyTakeaways title={block.title} items={block.items} />;
-    }
+    case "takeaways":
+      return <KeyTakeaways takeaways={block.items} title={block.title} />;
 
-    case "do-dont": {
+    case "do-dont":
       return (
-        <div className="my-8 rounded-2xl border border-border bg-card p-5 sm:p-6 overflow-hidden">
-          {block.title ? (
-            <h4 className="font-display text-lg font-semibold text-foreground mb-4">
-              {block.title}
-            </h4>
-          ) : null}
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-500/10 p-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-3">
-                <Check className="h-4 w-4" />
-                <span>Do</span>
-              </div>
-              <ul className="space-y-2 text-xs sm:text-sm text-foreground/85">
-                {block.dos.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+        <div className="my-10 grid gap-4 rounded-3xl border border-border bg-card p-6 shadow-xs sm:grid-cols-2 sm:p-8">
+          <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5 dark:bg-emerald-500/10">
+            <div className="flex items-center gap-2 font-display text-base font-semibold text-emerald-700 dark:text-emerald-400">
+              <Check className="h-5 w-5" />
+              <span>What To Do</span>
             </div>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
+              {block.dos.map((item, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div className="rounded-xl border border-destructive/30 bg-destructive/5 dark:bg-destructive/10 p-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-destructive mb-3">
-                <X className="h-4 w-4" />
-                <span>Don't</span>
-              </div>
-              <ul className="space-y-2 text-xs sm:text-sm text-foreground/85">
-                {block.donts.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-destructive font-bold">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="rounded-2xl border border-destructive/20 bg-destructive/5 p-5 dark:bg-destructive/10">
+            <div className="flex items-center gap-2 font-display text-base font-semibold text-destructive">
+              <X className="h-5 w-5" />
+              <span>What To Avoid</span>
             </div>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
+              {block.donts.map((item, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       );
-    }
 
-    case "divider": {
-      return <hr className="my-10 border-border/80" />;
-    }
+    case "icon-list":
+      return (
+        <div className="my-8 space-y-4 rounded-3xl border border-border/80 bg-card p-6 shadow-xs sm:p-8">
+          {block.items.map((item, i) => (
+            <div key={i} className="flex items-start gap-4">
+              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                {renderCustomIcon(item.icon, Check)}
+              </div>
+              <div>
+                <h4 className="font-display text-base font-semibold text-foreground">
+                  {item.title}
+                </h4>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+
+    case "faq":
+      return <FaqSection title={block.title} items={block.items} />;
+
+    case "divider":
+      return <hr className="my-10 border-border" />;
 
     default:
       return null;

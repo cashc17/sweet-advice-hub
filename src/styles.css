@@ -158,3 +158,23 @@
 @utility font-display {
   font-family: var(--font-display);
 }
+
+/* Dynamic reading text sizes */
+.text-size-normal p,
+.text-size-normal li {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+
+.text-size-large p,
+.text-size-large li {
+  font-size: 1.25rem;
+  line-height: 1.95;
+}
+
+.text-size-xl p,
+.text-size-xl li {
+  font-size: 1.375rem;
+  line-height: 2.05;
+}
+

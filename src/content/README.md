@@ -1,6 +1,6 @@
-# 📖 HeartlinesHub Blog Publishing & SEO Master Guide
+# 📖 HeartlinesHub Blog Publishing & Styling Master Guide
 
-Welcome to the **HeartlinesHub** blog content engine. This guide contains everything you need to write, style, optimize for **Google Search Console (SEO)**, and monetize with **Google AdSense**.
+Welcome to the **HeartlinesHub** content engine. This guide contains everything you need to write, style, optimize for **Google Search Console (SEO)**, and monetize with **Google AdSense**.
 
 ---
 
@@ -8,10 +8,11 @@ Welcome to the **HeartlinesHub** blog content engine. This guide contains everyt
 1. [Where Articles Are Saved](#1-where-articles-are-saved)
 2. [Step-by-Step: Adding a New Blog Post](#2-step-by-step-adding-a-new-blog-post)
 3. [Rich Block Types & Custom Styling Reference](#3-rich-block-types--custom-styling-reference)
-4. [SEO Optimization Master Checklist](#4-seo-optimization-master-checklist)
-5. [Google Search Console Setup](#5-google-search-console-setup)
-6. [Google AdSense Setup](#6-google-adsense-setup)
-7. [Full Copy-Paste Blog Post Template](#7-full-copy-paste-blog-post-template)
+4. [Built-in Reader & Editorial Features](#4-built-in-reader--editorial-features)
+5. [SEO Optimization Master Checklist](#5-seo-optimization-master-checklist)
+6. [Google Search Console Setup](#6-google-search-console-setup)
+7. [Google AdSense Setup](#7-google-adsense-setup)
+8. [Full Copy-Paste Blog Post Template](#8-full-copy-paste-blog-post-template)
 
 ---
 
@@ -39,21 +40,24 @@ Welcome to the **HeartlinesHub** blog content engine. This guide contains everyt
    export const post: Post = {
      slug: "my-new-article-slug",
      title: "Article Title — HeartlinesHub",
-     headline: "Main Headline",
+     headline: "Main Headline for Readers",
      description: "150-character SEO description for Google",
      category: "relationships", // "dating" | "relationships" | "breakups" | "self-love"
      date: "2026-08-14",
      readingMinutes: 6,
      image: postImage,
-     imageAlt: "Featured image description",
-     excerpt: "Short summary...",
-     takeaways: ["Point 1", "Point 2"],
-     keywords: ["relationship tips", "dating advice"],
+     imageAlt: "Featured image description for accessibility and SEO",
+     excerpt: "Short 2-sentence summary...",
+     takeaways: [
+       "Key takeaway point #1",
+       "Key takeaway point #2"
+     ],
+     keywords: ["relationship tips", "dating advice", "healthy communication"],
      authorName: "The HeartlinesHub Editors",
      body: [
-       { t: "p", text: "Introduction..." },
-       { t: "h2", text: "First Subheading" },
-       { t: "p", text: "Details..." }
+       { t: "p", text: "Introduction paragraph..." },
+       { t: "h2", text: "First Section Subheading" },
+       { t: "p", text: "Detailed explanation..." }
      ]
    };
 
@@ -92,13 +96,69 @@ Supports custom Tailwind classes via `className`:
 ```
 
 ### 2. Headings (`h2` & `h3`)
-Automatically generates smooth-scrollable HTML IDs:
+Automatically generates smooth-scrollable HTML IDs for the Table of Contents:
 ```typescript
 { t: "h2", text: "1. The 20-Minute Cooling Rule" },
 { t: "h3", text: "Why Physical Distance Matters First" }
 ```
 
-### 3. Bullet & Numbered Lists (`ul` & `ol`)
+### 3. Inline Images with Titles, Subtitles, Captions & Credits (`image`)
+Embed illustrations or photos directly within the article flow:
+```typescript
+import inlinePhoto from "@/assets/hero-hands.jpg";
+
+{
+  t: "image",
+  src: inlinePhoto,
+  alt: "Couple having an unhurried conversation in a cafe",
+  title: "The Micro-Habits of Enduring Connection",
+  subtitle: "Small daily gestures make all the difference",
+  caption: "Couples who practice daily eye contact report 40% fewer explosive arguments.",
+  credit: "HeartlinesHub Editorial Studio"
+}
+```
+
+### 4. Custom Icon Callouts (`callout`)
+Available variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
+Supports built-in Lucide icons (e.g. `"Heart"`, `"Sparkles"`, `"ShieldCheck"`, `"Flame"`) or direct emojis (e.g. `"💡"`, `"❤️"`, `"🌿"`):
+```typescript
+{
+  t: "callout",
+  variant: "tip",
+  icon: "💡",
+  title: "Golden Rule of Difficult Conversations",
+  text: "Never start a sensitive conversation after 9 PM or while multitasking."
+},
+{
+  t: "callout",
+  variant: "custom",
+  icon: "Heart",
+  title: "The 5:1 Warmth Ratio",
+  text: "Stable marriages maintain at least five positive interactions for every one negative interaction."
+}
+```
+
+### 5. Stylish Icon List (`icon-list`)
+Create beautifully structured multi-point breakdowns with custom icons:
+```typescript
+{
+  t: "icon-list",
+  items: [
+    {
+      icon: "MessageCircle",
+      title: "Specific events over eternal patterns",
+      text: "Saying 'on Tuesday when the dishes piled up' beats 'you always leave a mess'."
+    },
+    {
+      icon: "Heart",
+      title: "Name the emotion in one plain word",
+      text: "Tired, lonely, overwhelmed, embarrassed, or scared."
+    }
+  ]
+}
+```
+
+### 6. Bullet & Numbered Lists (`ul` & `ol`)
 ```typescript
 {
   t: "ul",
@@ -118,7 +178,7 @@ Automatically generates smooth-scrollable HTML IDs:
 }
 ```
 
-### 4. Styled Blockquotes (`quote`)
+### 7. Styled Blockquotes (`quote`)
 ```typescript
 {
   t: "quote",
@@ -127,204 +187,102 @@ Automatically generates smooth-scrollable HTML IDs:
 }
 ```
 
-### 5. Pro-Tips, Warnings & Info Callouts (`callout`)
-Available variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`.
-```typescript
-{
-  t: "callout",
-  variant: "tip",
-  title: "Golden Rule of Conflict",
-  text: "Never discuss serious life decisions after 10 PM when energy and patience are depleted."
-},
-{
-  t: "callout",
-  variant: "warning",
-  title: "Red Flag Alert",
-  text: "If a partner stonewalls for days without communicating, that is emotional withdrawal, not a timeout."
-}
-```
-
-### 6. Inline Images with Captions (`image`)
-```typescript
-{
-  t: "image",
-  src: "/assets/inline-diagram.jpg", // or imported image variable
-  alt: "Illustration of the communication cycle",
-  caption: "Figure 1: How emotional de-escalation leads to productive resolution."
-}
-```
-
-### 7. Do's & Don'ts Comparison Box (`do-dont`)
+### 8. Do's & Don'ts Comparison Box (`do-dont`)
 ```typescript
 {
   t: "do-dont",
-  title: "Conflict Resolution: Do's & Don'ts",
+  title: "Communicating In Heated Moments: Dos & Don'ts",
   dos: [
-    "Speak with 'I feel' statements",
-    "Acknowledge your partner's emotions",
-    "Take time to calm down before replying"
+    "Speak from your own perspective ('I feel overwhelmed')",
+    "Agree on a 20-minute pause if heart rates spike",
+    "Acknowledge valid points made by your partner"
   ],
   donts: [
-    "Use accusatory words like 'you always'",
-    "Bring past unrelated arguments",
-    "Storm off without giving a return time"
+    "Use absolute statements like 'you always' or 'you never'",
+    "Bring up unrelated past mistakes from months ago",
+    "Walk out of the room without setting a time to talk again"
   ]
 }
 ```
 
-### 8. Key Takeaways Box (`takeaways`)
-Can be added as a block or defined in `takeaways` property on the Post:
+### 9. Key Takeaways Box (`takeaways`)
 ```typescript
 {
   t: "takeaways",
-  title: "Quick Summary",
+  title: "Summary of Key Points",
   items: [
-    "Timing matters more than the specific wording.",
-    "Repair attempts work only when accepted quickly.",
-    "Spend 80% of attention on appreciation rather than criticism."
+    "Timing matters more than the exact wording.",
+    "Express feelings rather than verdicts."
   ]
 }
 ```
 
-### 9. Section Divider (`divider`)
-```typescript
-{ t: "divider" }
-```
-
----
-
-## 4. SEO Optimization Master Checklist
-
-Every article in HeartlinesHub comes automatically armed with enterprise SEO architecture:
-
-- [x] **Single `<h1>` Title Tag:** Automatically sets the article headline as the only H1.
-- [x] **Schema.org Structured Data (`BlogPosting` & `BreadcrumbList`):** Enables Google Rich Snippets, Author badges, Star ratings, and Knowledge Graph inclusion.
-- [x] **OpenGraph & Twitter Cards:** Generates preview images, title, and description when shared on Facebook, WhatsApp, LinkedIn, X/Twitter, or Telegram.
-- [x] **Canonical Link Tag:** Injected dynamically into `<head>` to prevent duplicate content penalties.
-- [x] **Reading Time:** Displays estimated reading minutes for improved reader engagement and lower bounce rate.
-- [x] **Semantic HTML:** Pure HTML5 elements (`<article>`, `<header>`, `<figure>`, `<figcaption>`, `<nav>`, `<time>`).
-- [x] **Zero Cumulative Layout Shift (CLS):** Images and ad slots reserve their height to guarantee top Core Web Vitals scores.
-
----
-
-## 5. Google Search Console Setup
-
-1. Go to [Google Search Console](https://search.google.com/search-console).
-2. Choose **URL prefix** or **HTML tag verification**.
-3. Copy your verification code (the `content="xxxx"` part).
-4. Open `src/config/site.ts` and paste the token:
-   ```typescript
-   export const GOOGLE_SITE_VERIFICATION = "your-google-token-here";
-   ```
-5. Click **Verify** in Google Search Console.
-6. Submit your sitemap in Search Console:
-   - In the left sidebar, click **Sitemaps**.
-   - Enter `sitemap.xml` and click **Submit**.
-
----
-
-## 6. Google AdSense Setup
-
-1. Go to [Google AdSense](https://adsense.google.com/).
-2. Copy your Publisher ID (e.g. `ca-pub-1234567890123456`).
-3. Open `src/config/site.ts`:
-   ```typescript
-   export const ADSENSE_PUBLISHER_ID = "ca-pub-1234567890123456";
-
-   export const ADSENSE_SLOTS = {
-     articleTop: "1234567890",   // Slot ID for top banner
-     articleMid: "2345678901",   // Slot ID for in-article ad
-     articleEnd: "3456789012",   // Slot ID for bottom banner
-     inFeed: "4567890123",       // Slot ID for homepage/archive feeds
-   } as const;
-   ```
-4. While `ADSENSE_PUBLISHER_ID` is empty `""`, the site displays clean, unobtrusive placeholder boxes so layout testing is seamless. Once filled, real ads appear automatically without shifting the page layout!
-
----
-
-## 7. Full Copy-Paste Blog Post Template
-
-Copy and paste this template into `src/content/posts.ts`:
-
+### 10. Inline FAQ Accordion (`faq`)
+Generates an interactive FAQ box with Google `FAQPage` rich snippet support:
 ```typescript
 {
-  slug: "your-article-url-slug",
-  title: "Your SEO Catchy Article Title — HeartlinesHub",
-  headline: "Your Main Headline Displayed to Readers",
-  description: "A compelling 150-160 character meta description containing your target keywords for Google Search results.",
-  category: "relationships", // Options: "dating" | "relationships" | "breakups" | "self-love"
-  date: "2026-08-14",
-  readingMinutes: 6,
-  image: yourImportedImage,
-  imageAlt: "Descriptive alt text for image SEO and screen readers",
-  excerpt: "A powerful 2-3 sentence summary displayed on card previews.",
-  keywords: [
-    "relationship advice",
-    "healthy communication",
-    "dating tips",
-    "how to stop fighting"
-  ],
-  authorName: "The HeartlinesHub Editors",
-  authorRole: "Relationship & Communication Specialists",
-  authorBio: "HeartlinesHub publishes honest, grounded love advice written to help couples and singles build healthier, more enduring connections.",
-  takeaways: [
-    "Key takeaway point #1",
-    "Key takeaway point #2",
-    "Key takeaway point #3",
-    "Key takeaway point #4"
-  ],
-  body: [
+  t: "faq",
+  title: "Frequently Asked Questions",
+  items: [
     {
-      t: "p",
-      text: "Start your article with an engaging hook that directly addresses the reader's core problem."
-    },
-    {
-      t: "callout",
-      variant: "tip",
-      title: "Core Principle",
-      text: "A quick golden rule or actionable tip."
-    },
-    {
-      t: "h2",
-      text: "First Major Subheading"
-    },
-    {
-      t: "p",
-      text: "Explain the concept clearly and provide practical solutions."
-    },
-    {
-      t: "ul",
-      items: [
-        "First practical action step",
-        "Second practical action step",
-        "Third practical action step"
-      ]
-    },
-    {
-      t: "quote",
-      text: "An inspiring or thought-provoking quote.",
-      author: "Famous author or relationship expert"
-    },
-    {
-      t: "do-dont",
-      title: "Best Practices vs Common Pitfalls",
-      dos: [
-        "Stay calm and speak clearly",
-        "Listen actively without defensiveness"
-      ],
-      donts: [
-        "Interrupt or shout",
-        "Bring up past mistakes"
-      ]
-    },
-    {
-      t: "h2",
-      text: "What to Do Starting Today"
-    },
-    {
-      t: "p",
-      text: "Wrap up the article with a clear, achievable step the reader can take right now."
+      q: "What should I do if my partner shuts down?",
+      a: "Lower the stakes, offer a calm break, and let them know you care about their perspective when they are ready."
     }
   ]
 }
 ```
+
+---
+
+## 4. Built-in Reader & Editorial Features
+
+Every article automatically includes the following interactive features:
+- 📊 **Reading Progress Bar:** Tracks scroll percentage at the very top of the window.
+- 🔤 **Text Size Adjuster (`A` / `A+` / `A++`):** Changes font sizes dynamically with saved reader preferences.
+- 📑 **Table of Contents:** Auto-extracts all `h2`/`h3` sections with active scroll highlighting.
+- 🔗 **Social Share Suite:** One-tap sharing to WhatsApp, X (Twitter), Facebook, LinkedIn, and Copy Link.
+- ❤️ **Interactive Reader Reactions:** 1-click reaction counters (*Heartfelt*, *Eye-Opening*, *Healing*, *Relatable*).
+- 💌 **Sunday Love Letter Newsletter Box:** Built-in email capture card.
+- ⏭️ **Previous & Next Article Links:** Encourages binge-reading across articles.
+- 👤 **E-E-A-T Author Profile Card:** Shows author bio, credentials, and avatar.
+
+---
+
+## 5. SEO Optimization Master Checklist
+
+Every article in HeartlinesHub comes automatically armed with enterprise SEO architecture:
+
+- [x] **Single `<h1>` Title Tag:** Automatically sets the article headline as the only H1.
+- [x] **Schema.org Structured Data (`BlogPosting`, `BreadcrumbList`, `FAQPage`):** Enables Google Rich Snippets, Author badges, Star ratings, and Knowledge Graph inclusion.
+- [x] **Dynamic Canonical URLs:** Prevents duplicate content penalties.
+- [x] **OpenGraph & Twitter Cards:** Generates large preview cards when shared on social media.
+- [x] **Automated XML Sitemap:** Live at `/sitemap.xml` with priority and changefreq.
+- [x] **Zero-CLS AdSense Containers:** Prevents layout shifting to protect Google Core Web Vitals.
+
+---
+
+## 6. Google Search Console Setup
+
+1. Open [Google Search Console](https://search.google.com/search-console).
+2. Add your property (e.g. `https://heartlineshub.com`).
+3. Choose **HTML Tag Verification** and copy your token string.
+4. Paste it into `src/config/site.ts`:
+   ```typescript
+   export const GOOGLE_SITE_VERIFICATION = "your-token-here";
+   ```
+5. Submit your sitemap at **Sitemaps** ➔ `sitemap.xml`.
+
+---
+
+## 7. Google AdSense Setup
+
+1. Open [Google AdSense](https://adsense.google.com/).
+2. Paste your publisher ID into `src/config/site.ts`:
+   ```typescript
+   export const ADSENSE_PUBLISHER_ID = "ca-pub-1234567890123456";
+   ```
+3. Update `public/ads.txt` with your ID:
+   ```text
+   google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+   ```
+4. While `ADSENSE_PUBLISHER_ID` is empty, **no placeholders or empty boxes are shown to users**. Once filled, real ads appear smoothly without layout shift.

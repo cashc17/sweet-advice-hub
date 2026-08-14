@@ -1,20 +1,34 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AdSlot } from "@/components/ad-slot";
 import { AuthorCard } from "@/components/author-card";
+import { FaqSection } from "@/components/faq-section";
 import { KeyTakeaways } from "@/components/key-takeaways";
+import { NewsletterCard } from "@/components/newsletter-card";
 import { PostCard } from "@/components/post-card";
+import { PostNavigation } from "@/components/post-navigation";
 import { Prose } from "@/components/prose";
+import { ReaderReactions } from "@/components/reader-reactions";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SocialShare } from "@/components/social-share";
+import { TableOfContents } from "@/components/table-of-contents";
+import { TextSizeControl } from "@/components/text-size-control";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { getCategory } from "@/content/categories";
-import { formatDate, getPost, relatedPosts } from "@/content/posts";
+import { formatDate, getPost, relatedPosts, sortedPosts } from "@/content/posts";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const post = getPost(params.slug);
     if (!post) throw notFound();
-    return { post };
+
+    const currentIndex = sortedPosts.findIndex((p) => p.slug === params.slug);
+    const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
+    const nextPost =
+      currentIndex >= 0 && currentIndex < sortedPosts.length - 1
+        ? sortedPosts[currentIndex + 1]
+        : undefined;
+
+    return { post, prevPost, nextPost };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
@@ -25,7 +39,63 @@ export const Route = createFileRoute("/blog/$slug")({
     const { post } = loaderData;
     const url = `/blog/${params.slug}`;
     const authorName = post.authorName || SITE.author;
-    const keywords = post.keywords?.length ? post.keywords.join(", ") : `${post.category}, love advice, relationship tips, dating guide`;
+    const keywords = post.keywords?.length
+      ? post.keywords.join(", ")
+      : `${post.category}, love advice, relationship tips, dating guide`;
+
+    const schemas: unknown[] = [
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": url,
+        },
+        headline: post.title,
+        description: post.description,
+        image: [post.image],
+        datePublished: post.date,
+        dateModified: post.updated ?? post.date,
+        author: {
+          "@type": "Person",
+          name: authorName,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: SITE.name,
+          logo: {
+            "@type": "ImageObject",
+            url: "/favicon.svg",
+          },
+        },
+        articleSection: getCategory(post.category)?.name,
+        keywords: keywords,
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+          { "@type": "ListItem", position: 2, name: "Articles", item: "/blog" },
+          { "@type": "ListItem", position: 3, name: post.title, item: url },
+        ],
+      },
+    ];
+
+    if (post.faqs && post.faqs.length > 0) {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: post.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.a,
+          },
+        })),
+      });
+    }
 
     return {
       meta: [
@@ -48,50 +118,10 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:image", content: post.image },
       ],
       links: [{ rel: "canonical", href: url }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": url,
-            },
-            headline: post.title,
-            description: post.description,
-            image: [post.image],
-            datePublished: post.date,
-            dateModified: post.updated ?? post.date,
-            author: {
-              "@type": "Person",
-              name: authorName,
-            },
-            publisher: {
-              "@type": "Organization",
-              name: SITE.name,
-              logo: {
-                "@type": "ImageObject",
-                url: "/favicon.svg",
-              },
-            },
-            articleSection: getCategory(post.category)?.name,
-            keywords: keywords,
-          }),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-              { "@type": "ListItem", position: 2, name: "Articles", item: "/blog" },
-              { "@type": "ListItem", position: 3, name: post.title, item: url },
-            ],
-          }),
-        },
-      ],
+      scripts: schemas.map((schema) => ({
+        type: "application/ld+json",
+        children: JSON.stringify(schema),
+      })),
     };
   },
   notFoundComponent: PostNotFound,
@@ -116,7 +146,7 @@ function PostNotFound() {
 }
 
 function PostPage() {
-  const { post } = Route.useLoaderData();
+  const { post, prevPost, nextPost } = Route.useLoaderData();
   const category = getCategory(post.category);
   const related = relatedPosts(post);
   const authorName = post.authorName || SITE.author;
@@ -162,12 +192,15 @@ function PostPage() {
               <p className="text-[0.7rem] uppercase tracking-[0.22em] font-semibold text-primary">
                 {category?.name ?? "Advice"}
               </p>
-              <span className="text-xs text-muted-foreground">
-                {post.readingMinutes} min read
-              </span>
+              <div className="flex items-center gap-3">
+                <TextSizeControl />
+                <span className="text-xs text-muted-foreground">
+                  {post.readingMinutes} min read
+                </span>
+              </div>
             </div>
 
-            <h1 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+            <h1 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">
               {post.headline}
             </h1>
 
@@ -186,7 +219,7 @@ function PostPage() {
             <SocialShare title={post.title} url={`/blog/${post.slug}`} />
           </header>
 
-          <figure className="mt-6 overflow-hidden rounded-2xl border border-border shadow-xs">
+          <figure className="mt-6 overflow-hidden rounded-3xl border border-border shadow-xs">
             <img
               src={post.image}
               alt={post.imageAlt}
@@ -198,6 +231,8 @@ function PostPage() {
               <figcaption className="sr-only">{post.imageAlt}</figcaption>
             ) : null}
           </figure>
+
+          <TableOfContents blocks={post.body} />
 
           {post.takeaways && post.takeaways.length > 0 ? (
             <KeyTakeaways items={post.takeaways} />
@@ -213,9 +248,15 @@ function PostPage() {
 
           <AdSlot slot={ADSENSE_SLOTS.articleEnd} minHeight={280} />
 
+          <ReaderReactions postSlug={post.slug} />
+
           <div className="mt-8 border-t border-border/80 pt-4">
             <SocialShare title={post.title} url={`/blog/${post.slug}`} />
           </div>
+
+          <NewsletterCard />
+
+          <PostNavigation prevPost={prevPost} nextPost={nextPost} />
 
           <AuthorCard
             authorName={post.authorName}
@@ -223,6 +264,10 @@ function PostPage() {
             authorBio={post.authorBio}
             authorAvatar={post.authorAvatar}
           />
+
+          {post.faqs && post.faqs.length > 0 ? (
+            <FaqSection items={post.faqs} />
+          ) : null}
 
           <footer className="mt-6 rounded-2xl border border-border bg-secondary/40 p-6 text-sm text-muted-foreground">
             {SITE.name} offers general advice, not therapy or medical care. If you are in distress or

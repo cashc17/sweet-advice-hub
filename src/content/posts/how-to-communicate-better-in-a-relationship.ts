@@ -1,3 +1,4 @@
+import heroHands from "@/assets/hero-hands.jpg";
 import postCommunication from "@/assets/post-communication.jpg";
 import type { Post } from "../types";
 
@@ -29,6 +30,20 @@ export const post: Post = {
   ],
   authorName: "The HeartlinesHub Editors",
   authorRole: "Relationship & Communication Specialists",
+  faqs: [
+    {
+      q: "What is the #1 rule for arguing healthily in a relationship?",
+      a: "Never start a difficult conversation after 9 PM or when either partner is hungry or overwhelmed. Always express internal feelings ('I felt lonely this week') rather than blaming verdicts ('You never pay attention').",
+    },
+    {
+      q: "How long should a timeout last during an argument?",
+      a: "Physiologists recommend at least 20 minutes for elevated heart rates and cortisol to return to baseline. Always set a precise time to resume the discussion so it does not feel like avoidance.",
+    },
+    {
+      q: "What should I do if my partner shuts down (stonewalls)?",
+      a: "Stonewalling is usually a sign of physiological flooding, not indifference. Lower the stakes, offer a calm break, and let them know you care about their perspective when they are ready.",
+    },
+  ],
   body: [
     {
       t: "p",
@@ -37,6 +52,7 @@ export const post: Post = {
     {
       t: "callout",
       variant: "tip",
+      icon: "💡",
       title: "Golden Rule of Difficult Conversations",
       text: "Never start a sensitive conversation after 9 PM, before morning coffee, or while either partner is multitasking.",
     },
@@ -51,12 +67,34 @@ export const post: Post = {
       text: "There is a real difference between 'you never help around here' and 'I felt alone with the house this week.' The first is a verdict, and verdicts invite a defence. The second is a report from inside your own head, and nobody can argue with what you felt. You are not softening the message; you are removing the part of it that guarantees a fight.",
     },
     {
-      t: "ul",
+      t: "icon-list",
       items: [
-        "Describe the specific event, not the pattern: 'on Tuesday' beats 'always'.",
-        "Say the feeling in one plain word: tired, lonely, embarrassed, scared.",
-        "Make one concrete request instead of three vague complaints.",
+        {
+          icon: "MessageCircle",
+          title: "Describe the specific event, not the eternal pattern",
+          text: "Saying 'on Tuesday night when the dishes piled up' beats 'you always leave a mess' every single time.",
+        },
+        {
+          icon: "Heart",
+          title: "Name the emotion in one plain word",
+          text: "Tired, lonely, overwhelmed, embarrassed, or scared. Plain emotional honesty cuts through defensiveness.",
+        },
+        {
+          icon: "Sparkles",
+          title: "Make one concrete request",
+          text: "Ask for one actionable step rather than unloading three vague, unfixable complaints at once.",
+        },
       ],
+    },
+    {
+      t: "image",
+      src: heroHands,
+      alt: "Two hands holding warm mugs together across a wooden table",
+      title: "The Micro-Habits of Enduring Connection",
+      subtitle: "Small daily gestures make all the difference",
+      caption:
+        "Couples who practice daily check-ins and unhurried eye contact report 40% fewer explosive arguments.",
+      credit: "HeartlinesHub Editorial Studio",
     },
     {
       t: "do-dont",
@@ -85,6 +123,13 @@ export const post: Post = {
     {
       t: "p",
       text: "When your heart rate climbs, your ability to be fair collapses. A timeout is not storming off; it is a stated pause with a return time. 'I want to keep talking about this, but I need twenty minutes to cool down. Can we come back at nine?' The return time is the whole trick. Without it, a pause feels like abandonment.",
+    },
+    {
+      t: "callout",
+      variant: "custom",
+      icon: "Heart",
+      title: "The 5:1 Warmth Ratio",
+      text: "Relationship researchers found that stable couples maintain at least five positive interactions for every one negative interaction during conflict.",
     },
     { t: "h2", text: "Repair quickly and out loud" },
     {
