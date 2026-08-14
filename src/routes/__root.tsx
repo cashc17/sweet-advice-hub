@@ -112,7 +112,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           },
         ]
       : [],
-    scripts_ldjson: undefined,
   }),
   shellComponent: RootShell,
   component: RootComponent,
