@@ -11,8 +11,8 @@ interface AuthorCardProps {
 
 export function AuthorCard({
   authorName = SITE.author,
-  authorRole = "Editorial Team & Relationship Specialists",
-  authorBio = "HeartlinesHub publishes honest, grounded love advice written to help couples and singles build healthier, more enduring connections.",
+  authorRole = SITE.authorRole,
+  authorBio = SITE.authorBio,
   authorAvatar,
 }: AuthorCardProps) {
   const initials = authorName

@@ -1,5 +1,6 @@
 import heroHands from "@/assets/hero-hands.jpg";
 import postCommunication from "@/assets/post-communication.jpg";
+import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -28,8 +29,8 @@ export const post: Post = {
     "healthy fighting",
     "marriage advice",
   ],
-  authorName: "The HeartlinesHub Editors",
-  authorRole: "Relationship & Communication Specialists",
+  authorName: SITE.author,
+  authorRole: SITE.authorRole,
   faqs: [
     {
       q: "What is the #1 rule for arguing healthily in a relationship?",
@@ -90,7 +91,8 @@ export const post: Post = {
       t: "image",
       src: heroHands,
       alt: "Two hands holding warm mugs together across a wooden table",
-      caption: "Couples who practice daily unhurried connection report 40% fewer explosive arguments.",
+      caption:
+        "Couples who prioritize unhurried daily conversation and undivided attention build greater emotional resilience during disagreements.",
     },
     {
       t: "do-dont",
@@ -124,8 +126,8 @@ export const post: Post = {
       t: "callout",
       variant: "custom",
       icon: "Heart",
-      title: "The 5:1 Warmth Ratio",
-      text: "Relationship researchers found that stable couples maintain at least five positive interactions for every one negative interaction during conflict.",
+      title: "The Positive Interaction Principle",
+      text: "Clinical relationship research by The Gottman Institute highlights that resilient couples consistently offer words of appreciation, warmth, and validation even during disagreements.",
     },
     { t: "h2", text: "Repair quickly and out loud" },
     {

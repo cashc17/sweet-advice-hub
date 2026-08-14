@@ -19,10 +19,12 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: `${SITE.url}/` },
+      { property: "og:image", content: `${SITE.url}/apple-touch-icon.png` },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE.url}/apple-touch-icon.png` },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: `${SITE.url}/` }],
     scripts: [
       {
         type: "application/ld+json",

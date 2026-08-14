@@ -18,7 +18,7 @@ export const Route = createFileRoute("/category/$slug")({
       };
     }
     const { category } = loaderData;
-    const url = `/category/${params.slug}`;
+    const fullUrl = `${SITE.url}/category/${params.slug}`;
     const title = `${category.title} — ${SITE.name}`;
     return {
       meta: [
@@ -27,10 +27,12 @@ export const Route = createFileRoute("/category/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: category.description },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: url },
+        { property: "og:url", content: fullUrl },
+        { property: "og:image", content: `${SITE.url}/apple-touch-icon.png` },
         { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:image", content: `${SITE.url}/apple-touch-icon.png` },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: fullUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -39,7 +41,7 @@ export const Route = createFileRoute("/category/$slug")({
             "@type": "CollectionPage",
             name: category.name,
             description: category.description,
-            url,
+            url: fullUrl,
           }),
         },
       ],

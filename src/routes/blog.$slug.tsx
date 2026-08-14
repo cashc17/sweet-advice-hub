@@ -34,7 +34,8 @@ export const Route = createFileRoute("/blog/$slug")({
       };
     }
     const { post } = loaderData;
-    const url = `/blog/${params.slug}`;
+    const fullUrl = `${SITE.url}/blog/${params.slug}`;
+    const imageUrl = post.image.startsWith("http") ? post.image : `${SITE.url}${post.image}`;
     const authorName = post.authorName || SITE.author;
     const keywords = post.keywords?.length
       ? post.keywords.join(", ")
@@ -46,11 +47,11 @@ export const Route = createFileRoute("/blog/$slug")({
         "@type": "BlogPosting",
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": url,
+          "@id": fullUrl,
         },
         headline: post.title,
         description: post.description,
-        image: [post.image],
+        image: [imageUrl],
         datePublished: post.date,
         dateModified: post.updated ?? post.date,
         author: {
@@ -62,7 +63,7 @@ export const Route = createFileRoute("/blog/$slug")({
           name: SITE.name,
           logo: {
             "@type": "ImageObject",
-            url: "/favicon.svg",
+            url: `${SITE.url}/favicon.svg`,
           },
         },
         articleSection: getCategory(post.category)?.name,
@@ -72,9 +73,9 @@ export const Route = createFileRoute("/blog/$slug")({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-          { "@type": "ListItem", position: 2, name: "Articles", item: "/blog" },
-          { "@type": "ListItem", position: 3, name: post.title, item: url },
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+          { "@type": "ListItem", position: 2, name: "Articles", item: `${SITE.url}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: fullUrl },
         ],
       },
     ];
@@ -103,8 +104,8 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: url },
-        { property: "og:image", content: post.image },
+        { property: "og:url", content: fullUrl },
+        { property: "og:image", content: imageUrl },
         { property: "og:site_name", content: SITE.name },
         { property: "article:published_time", content: post.date },
         { property: "article:modified_time", content: post.updated ?? post.date },
@@ -112,9 +113,9 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
-        { name: "twitter:image", content: post.image },
+        { name: "twitter:image", content: imageUrl },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: fullUrl }],
       scripts: schemas.map((schema) => ({
         type: "application/ld+json",
         children: JSON.stringify(schema),
