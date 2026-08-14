@@ -31,7 +31,7 @@ function BlogIndex() {
         <p className="text-[0.7rem] uppercase tracking-[0.22em] text-primary">The archive</p>
         <h1 className="mt-3 font-display text-4xl font-semibold">All articles</h1>
         <p className="mt-4 max-w-2xl text-muted-foreground">
-          {sortedPosts.length} pieces of love advice, newest first. Nothing here is a substitute
+          Calm, practical love advice, newest first. Nothing here is a substitute
           for therapy — it is the sort of thing a level-headed friend would tell you.
         </p>
       </header>

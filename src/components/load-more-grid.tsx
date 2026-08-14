@@ -46,23 +46,19 @@ export function LoadMoreGrid({
   }, [hasMore, loading, visibleCount, posts.length, batchSize]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visiblePosts.map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}
       </div>
 
-      <div ref={bottomRef} className="flex flex-col items-center justify-center py-4">
+      <div ref={bottomRef} className="flex items-center justify-center">
         {loading && hasMore ? (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin text-primary" />
             <span>Loading more articles...</span>
           </div>
-        ) : !hasMore && posts.length > initialCount ? (
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            You&apos;ve reached the end of the archive ({posts.length} articles)
-          </p>
         ) : null}
       </div>
     </div>

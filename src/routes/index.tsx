@@ -141,7 +141,7 @@ function Index() {
               to="/blog"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground shadow-xs transition-all hover:border-primary hover:bg-secondary/40 active:scale-95"
             >
-              <span>Browse all {sortedPosts.length} articles</span>
+              <span>Browse all articles</span>
               <ArrowRight className="h-4 w-4 text-primary" />
             </Link>
           </div>
