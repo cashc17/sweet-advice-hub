@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdSlot } from "@/components/ad-slot";
-import { PostCard } from "@/components/post-card";
+import { LoadMoreGrid } from "@/components/load-more-grid";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { sortedPosts } from "@/content/posts";
 
@@ -36,10 +36,8 @@ function BlogIndex() {
         </p>
       </header>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {sortedPosts.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
+      <div className="mt-10">
+        <LoadMoreGrid posts={sortedPosts} initialCount={6} batchSize={6} />
       </div>
 
       <AdSlot slot={ADSENSE_SLOTS.inFeed} minHeight={250} />

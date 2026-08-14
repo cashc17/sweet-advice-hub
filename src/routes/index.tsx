@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import heroHands from "@/assets/hero-hands.jpg";
 import { AdSlot } from "@/components/ad-slot";
+import { LoadMoreGrid } from "@/components/load-more-grid";
 import { PostCard } from "@/components/post-card";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { categories } from "@/content/categories";
@@ -120,10 +121,8 @@ function Index() {
           <h2 id="latest-heading" className="font-display text-2xl font-semibold">
             Latest advice
           </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
+          <div className="mt-6">
+            <LoadMoreGrid posts={rest} initialCount={6} batchSize={6} />
           </div>
         </section>
 

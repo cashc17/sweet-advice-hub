@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AdSlot } from "@/components/ad-slot";
-import { PostCard } from "@/components/post-card";
-import { ADSENSE_SLOTS } from "@/config/site";
+import { LoadMoreGrid } from "@/components/load-more-grid";
+import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { getCategory } from "@/content/categories";
 import { postsByCategory } from "@/content/posts";
 
@@ -36,11 +36,10 @@ export const Route = createFileRoute("/category/$slug")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-              { "@type": "ListItem", position: 2, name: category.name, item: url },
-            ],
+            "@type": "CollectionPage",
+            name: category.name,
+            description: category.description,
+            url,
           }),
         },
       ],
@@ -79,10 +78,8 @@ function CategoryPage() {
         <p className="mt-4 max-w-2xl text-muted-foreground">{category.description}</p>
       </header>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
+      <div className="mt-10">
+        <LoadMoreGrid posts={posts} initialCount={6} batchSize={6} />
       </div>
 
       <AdSlot slot={ADSENSE_SLOTS.inFeed} minHeight={250} />
