@@ -90,11 +90,7 @@ export const post: Post = {
       t: "image",
       src: heroHands,
       alt: "Two hands holding warm mugs together across a wooden table",
-      title: "The Micro-Habits of Enduring Connection",
-      subtitle: "Small daily gestures make all the difference",
-      caption:
-        "Couples who practice daily check-ins and unhurried eye contact report 40% fewer explosive arguments.",
-      credit: "HeartlinesHub Editorial Studio",
+      caption: "Couples who practice daily unhurried connection report 40% fewer explosive arguments.",
     },
     {
       t: "do-dont",

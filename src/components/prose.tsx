@@ -215,33 +215,18 @@ function BlockView({ block }: { block: Block }) {
 
     case "image":
       return (
-        <figure className="my-10 overflow-hidden rounded-3xl border border-border/80 bg-card shadow-xs">
-          {block.title ? (
-            <div className="border-b border-border/60 bg-muted/30 px-5 py-3 sm:px-6">
-              <h4 className="font-display text-base font-semibold text-foreground sm:text-lg">
-                {block.title}
-              </h4>
-              {block.subtitle ? (
-                <p className="mt-0.5 text-xs text-muted-foreground">{block.subtitle}</p>
-              ) : null}
-            </div>
-          ) : null}
-
+        <figure className="my-10">
           <img
             src={block.src}
             alt={block.alt}
             width={block.width || 1200}
             height={block.height || 800}
             loading="lazy"
-            className="w-full object-cover"
+            className="w-full rounded-2xl border border-border object-cover shadow-xs max-h-[500px]"
           />
-
-          {block.caption || block.credit ? (
-            <figcaption className="flex flex-col justify-between gap-1 border-t border-border/60 bg-card/50 px-5 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6">
-              {block.caption ? <span>{block.caption}</span> : <span />}
-              {block.credit ? (
-                <span className="shrink-0 italic opacity-80">Photo: {block.credit}</span>
-              ) : null}
+          {block.caption ? (
+            <figcaption className="mt-3 text-center text-xs text-muted-foreground sm:text-sm">
+              {block.caption}
             </figcaption>
           ) : null}
         </figure>

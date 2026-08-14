@@ -16,10 +16,7 @@ export type Block =
       t: "image";
       src: string;
       alt: string;
-      title?: string;
-      subtitle?: string;
       caption?: string;
-      credit?: string;
       width?: number;
       height?: number;
     }

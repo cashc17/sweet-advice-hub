@@ -102,7 +102,7 @@ Automatically generates smooth-scrollable HTML IDs for the Table of Contents:
 { t: "h3", text: "Why Physical Distance Matters First" }
 ```
 
-### 3. Inline Images with Titles, Subtitles, Captions & Credits (`image`)
+### 3. Inline Images with Captions (`image`)
 Embed illustrations or photos directly within the article flow:
 ```typescript
 import inlinePhoto from "@/assets/hero-hands.jpg";
@@ -111,10 +111,7 @@ import inlinePhoto from "@/assets/hero-hands.jpg";
   t: "image",
   src: inlinePhoto,
   alt: "Couple having an unhurried conversation in a cafe",
-  title: "The Micro-Habits of Enduring Connection",
-  subtitle: "Small daily gestures make all the difference",
-  caption: "Couples who practice daily eye contact report 40% fewer explosive arguments.",
-  credit: "HeartlinesHub Editorial Studio"
+  caption: "Couples who practice daily eye contact report 40% fewer explosive arguments."
 }
 ```
 
