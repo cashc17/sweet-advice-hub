@@ -154,11 +154,11 @@ export const GOOGLE_SITE_VERIFICATION = "your-google-verification-token";
 // 4. Site Brand & Domain Metadata
 export const SITE = {
   name: "HeartlinesHub",
-  url: "https://heartlines.blog",
+  url: "https://heartlineshub.vercel.app",
   tagline: "Honest love advice, written for real relationships",
   description: "HeartlinesHub publishes calm, practical love and relationship advice...",
-  email: "hello@heartlines.blog",
-  author: "The HeartlinesHub Editors",
+  email: "heartlineshub@gmail.com",
+  author: "HeartlinesHub Editorial Team",
   logo: "/favicon.svg",
 } as const;
 ```

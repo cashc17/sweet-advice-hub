@@ -259,7 +259,7 @@ Every article in HeartlinesHub comes automatically armed with enterprise SEO arc
 ## 6. Google Search Console Setup
 
 1. Open [Google Search Console](https://search.google.com/search-console).
-2. Add your property (e.g. `https://heartlineshub.com`).
+2. Add your property (e.g. `https://heartlineshub.vercel.app`).
 3. Choose **HTML Tag Verification** and copy your token string.
 4. Paste it into `src/config/site.ts`:
    ```typescript
