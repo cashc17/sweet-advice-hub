@@ -3,15 +3,12 @@ import { AdSlot } from "@/components/ad-slot";
 import { AuthorCard } from "@/components/author-card";
 import { FaqSection } from "@/components/faq-section";
 import { KeyTakeaways } from "@/components/key-takeaways";
-import { NewsletterCard } from "@/components/newsletter-card";
 import { PostCard } from "@/components/post-card";
 import { PostNavigation } from "@/components/post-navigation";
 import { Prose } from "@/components/prose";
-import { ReaderReactions } from "@/components/reader-reactions";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SocialShare } from "@/components/social-share";
 import { TableOfContents } from "@/components/table-of-contents";
-import { TextSizeControl } from "@/components/text-size-control";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { getCategory } from "@/content/categories";
 import { formatDate, getPost, relatedPosts, sortedPosts } from "@/content/posts";
@@ -192,12 +189,9 @@ function PostPage() {
               <p className="text-[0.7rem] uppercase tracking-[0.22em] font-semibold text-primary">
                 {category?.name ?? "Advice"}
               </p>
-              <div className="flex items-center gap-3">
-                <TextSizeControl />
-                <span className="text-xs text-muted-foreground">
-                  {post.readingMinutes} min read
-                </span>
-              </div>
+              <span className="text-xs text-muted-foreground">
+                {post.readingMinutes} min read
+              </span>
             </div>
 
             <h1 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">
@@ -248,13 +242,9 @@ function PostPage() {
 
           <AdSlot slot={ADSENSE_SLOTS.articleEnd} minHeight={280} />
 
-          <ReaderReactions postSlug={post.slug} />
-
           <div className="mt-8 border-t border-border/80 pt-4">
             <SocialShare title={post.title} url={`/blog/${post.slug}`} />
           </div>
-
-          <NewsletterCard />
 
           <PostNavigation prevPost={prevPost} nextPost={nextPost} />
 

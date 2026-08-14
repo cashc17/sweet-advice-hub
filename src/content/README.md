@@ -238,13 +238,11 @@ Generates an interactive FAQ box with Google `FAQPage` rich snippet support:
 
 Every article automatically includes the following interactive features:
 - 📊 **Reading Progress Bar:** Tracks scroll percentage at the very top of the window.
-- 🔤 **Text Size Adjuster (`A` / `A+` / `A++`):** Changes font sizes dynamically with saved reader preferences.
 - 📑 **Table of Contents:** Auto-extracts all `h2`/`h3` sections with active scroll highlighting.
-- 🔗 **Social Share Suite:** One-tap sharing to WhatsApp, X (Twitter), Facebook, LinkedIn, and Copy Link.
-- ❤️ **Interactive Reader Reactions:** 1-click reaction counters (*Heartfelt*, *Eye-Opening*, *Healing*, *Relatable*).
-- 💌 **Sunday Love Letter Newsletter Box:** Built-in email capture card.
+- 🔗 **Social Share Suite:** One-tap sharing to WhatsApp, X (Twitter), Facebook, LinkedIn, and Copy Link with toast.
 - ⏭️ **Previous & Next Article Links:** Encourages binge-reading across articles.
 - 👤 **E-E-A-T Author Profile Card:** Shows author bio, credentials, and avatar.
+- ❓ **Collapsible FAQ Section:** Supports structured FAQ schema for Google Search.
 
 ---
 
