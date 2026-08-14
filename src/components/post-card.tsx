@@ -9,8 +9,8 @@ export function PostCard({ post, featured = false }: { post: Post; featured?: bo
     <article
       className={
         featured
-          ? "grid gap-6 overflow-hidden rounded-2xl border border-border bg-card md:grid-cols-2"
-          : "flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card"
+          ? "grid gap-6 overflow-hidden rounded-2xl border border-border bg-card shadow-xs transition-all duration-300 hover:shadow-lg hover:border-primary/40 md:grid-cols-2"
+          : "flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-xs transition-all duration-300 hover:shadow-lg hover:border-primary/40"
       }
     >
       <Link

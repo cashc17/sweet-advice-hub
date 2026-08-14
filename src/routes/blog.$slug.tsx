@@ -1,7 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AdSlot } from "@/components/ad-slot";
+import { AuthorCard } from "@/components/author-card";
+import { KeyTakeaways } from "@/components/key-takeaways";
 import { PostCard } from "@/components/post-card";
 import { Prose } from "@/components/prose";
+import { ReadingProgress } from "@/components/reading-progress";
+import { SocialShare } from "@/components/social-share";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { getCategory } from "@/content/categories";
 import { formatDate, getPost, relatedPosts } from "@/content/posts";
@@ -20,16 +24,28 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const { post } = loaderData;
     const url = `/blog/${params.slug}`;
+    const authorName = post.authorName || SITE.author;
+    const keywords = post.keywords?.length ? post.keywords.join(", ") : `${post.category}, love advice, relationship tips, dating guide`;
+
     return {
       meta: [
-        { title: `${post.title} — Heartlines` },
+        { title: `${post.title} — ${SITE.name}` },
         { name: "description", content: post.description },
+        { name: "keywords", content: keywords },
+        { name: "author", content: authorName },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:image", content: post.image },
+        { property: "og:site_name", content: SITE.name },
+        { property: "article:published_time", content: post.date },
+        { property: "article:modified_time", content: post.updated ?? post.date },
+        { property: "article:section", content: getCategory(post.category)?.name ?? "Advice" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "author", content: SITE.author },
+        { name: "twitter:title", content: post.title },
+        { name: "twitter:description", content: post.description },
+        { name: "twitter:image", content: post.image },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
@@ -38,14 +54,29 @@ export const Route = createFileRoute("/blog/$slug")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": url,
+            },
             headline: post.title,
             description: post.description,
+            image: [post.image],
             datePublished: post.date,
             dateModified: post.updated ?? post.date,
-            author: { "@type": "Organization", name: SITE.author },
-            publisher: { "@type": "Organization", name: SITE.name },
-            mainEntityOfPage: { "@type": "WebPage", "@id": url },
+            author: {
+              "@type": "Person",
+              name: authorName,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: SITE.name,
+              logo: {
+                "@type": "ImageObject",
+                url: "/favicon.svg",
+              },
+            },
             articleSection: getCategory(post.category)?.name,
+            keywords: keywords,
           }),
         },
         {
@@ -76,7 +107,7 @@ function PostNotFound() {
       </p>
       <Link
         to="/blog"
-        className="mt-6 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+        className="mt-6 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-transform hover:scale-105"
       >
         Browse all articles
       </Link>
@@ -88,89 +119,129 @@ function PostPage() {
   const { post } = Route.useLoaderData();
   const category = getCategory(post.category);
   const related = relatedPosts(post);
+  const authorName = post.authorName || SITE.author;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
-        <ol className="flex flex-wrap items-center gap-2">
-          <li>
-            <Link to="/" className="hover:text-primary">
-              Home
-            </Link>
-          </li>
-          <li aria-hidden="true">/</li>
-          <li>
-            <Link to="/blog" className="hover:text-primary">
-              Articles
-            </Link>
-          </li>
-          {category ? (
-            <>
-              <li aria-hidden="true">/</li>
-              <li>
-                <Link
-                  to="/category/$slug"
-                  params={{ slug: category.slug }}
-                  className="hover:text-primary"
-                >
-                  {category.name}
-                </Link>
-              </li>
-            </>
+    <>
+      <ReadingProgress />
+
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>
+              <Link to="/" className="hover:text-primary transition-colors">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link to="/blog" className="hover:text-primary transition-colors">
+                Articles
+              </Link>
+            </li>
+            {category ? (
+              <>
+                <li aria-hidden="true">/</li>
+                <li>
+                  <Link
+                    to="/category/$slug"
+                    params={{ slug: category.slug }}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              </>
+            ) : null}
+          </ol>
+        </nav>
+
+        <article className="mx-auto mt-8 max-w-2xl">
+          <header>
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[0.7rem] uppercase tracking-[0.22em] font-semibold text-primary">
+                {category?.name ?? "Advice"}
+              </p>
+              <span className="text-xs text-muted-foreground">
+                {post.readingMinutes} min read
+              </span>
+            </div>
+
+            <h1 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+              {post.headline}
+            </h1>
+
+            <p className="mt-4 text-lg sm:text-xl leading-relaxed text-muted-foreground font-light">
+              {post.excerpt}
+            </p>
+
+            <div className="mt-5 flex flex-wrap items-center justify-between border-y border-border/70 py-3 gap-3 text-xs text-muted-foreground">
+              <div>
+                By <span className="font-medium text-foreground">{authorName}</span> ·{" "}
+                <time dateTime={post.date}>{formatDate(post.date)}</time>
+                {post.updated ? ` (Updated ${formatDate(post.updated)})` : null}
+              </div>
+            </div>
+
+            <SocialShare title={post.title} url={`/blog/${post.slug}`} />
+          </header>
+
+          <figure className="mt-6 overflow-hidden rounded-2xl border border-border shadow-xs">
+            <img
+              src={post.image}
+              alt={post.imageAlt}
+              width={1200}
+              height={800}
+              className="w-full object-cover max-h-[480px]"
+            />
+            {post.imageAlt ? (
+              <figcaption className="sr-only">{post.imageAlt}</figcaption>
+            ) : null}
+          </figure>
+
+          {post.takeaways && post.takeaways.length > 0 ? (
+            <KeyTakeaways items={post.takeaways} />
           ) : null}
-        </ol>
-      </nav>
 
-      <article className="mx-auto mt-8 max-w-2xl">
-        <header>
-          <p className="text-[0.7rem] uppercase tracking-[0.22em] text-primary">
-            {category?.name ?? "Advice"}
-          </p>
-          <h1 className="mt-3 font-display text-3xl font-semibold leading-tight md:text-4xl">
-            {post.headline}
-          </h1>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
-          <p className="mt-5 text-xs text-muted-foreground">
-            By {SITE.author} · <time dateTime={post.date}>{formatDate(post.date)}</time> ·{" "}
-            {post.readingMinutes} min read
-          </p>
-        </header>
+          <AdSlot slot={ADSENSE_SLOTS.articleTop} minHeight={250} label="Advertisement" />
 
-        <img
-          src={post.image}
-          alt={post.imageAlt}
-          width={1200}
-          height={800}
-          className="mt-8 w-full rounded-2xl border border-border object-cover"
-        />
+          <Prose
+            blocks={post.body}
+            adAfter={Math.floor(post.body.length / 2)}
+            ad={<AdSlot slot={ADSENSE_SLOTS.articleMid} minHeight={280} />}
+          />
 
-        <AdSlot slot={ADSENSE_SLOTS.articleTop} minHeight={250} label="Advertisement" />
+          <AdSlot slot={ADSENSE_SLOTS.articleEnd} minHeight={280} />
 
-        <Prose
-          blocks={post.body}
-          adAfter={Math.floor(post.body.length / 2)}
-          ad={<AdSlot slot={ADSENSE_SLOTS.articleMid} minHeight={280} />}
-        />
+          <div className="mt-8 border-t border-border/80 pt-4">
+            <SocialShare title={post.title} url={`/blog/${post.slug}`} />
+          </div>
 
-        <AdSlot slot={ADSENSE_SLOTS.articleEnd} minHeight={280} />
+          <AuthorCard
+            authorName={post.authorName}
+            authorRole={post.authorRole}
+            authorBio={post.authorBio}
+            authorAvatar={post.authorAvatar}
+          />
 
-        <footer className="mt-6 rounded-2xl border border-border bg-secondary/40 p-6 text-sm text-muted-foreground">
-          Heartlines offers general advice, not therapy or medical care. If you are in distress or
-          feel unsafe, please contact a qualified professional or a support service in your
-          country.
-        </footer>
-      </article>
+          <footer className="mt-6 rounded-2xl border border-border bg-secondary/40 p-6 text-sm text-muted-foreground">
+            Heartlines offers general advice, not therapy or medical care. If you are in distress or
+            feel unsafe, please contact a qualified professional or a support service in your
+            country.
+          </footer>
+        </article>
 
-      <section className="mt-16 border-t border-border pt-10" aria-labelledby="related-heading">
-        <h2 id="related-heading" className="font-display text-2xl font-semibold">
-          Keep reading
-        </h2>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((p) => (
-            <PostCard key={p.slug} post={p} />
-          ))}
-        </div>
-      </section>
-    </div>
+        <section className="mt-16 border-t border-border pt-10" aria-labelledby="related-heading">
+          <h2 id="related-heading" className="font-display text-2xl font-semibold">
+            Keep reading
+          </h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((p) => (
+              <PostCard key={p.slug} post={p} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

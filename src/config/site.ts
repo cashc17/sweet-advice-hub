@@ -20,15 +20,17 @@ export const ADSENSE_SLOTS = {
 
 /**
  * Google Search Console meta verification token (the `content` value of the
- * google-site-verification tag). Leave empty until verification is requested.
+ * google-site-verification tag). Paste your token here when verifying.
  */
 export const GOOGLE_SITE_VERIFICATION = "";
 
 export const SITE = {
   name: "Heartlines",
+  url: "https://heartlines.blog",
   tagline: "Honest love advice, written for real relationships",
   description:
     "Heartlines publishes calm, practical love and relationship advice on dating, trust, breakups, and keeping long-term love alive.",
   email: "hello@heartlines.blog",
   author: "The Heartlines Editors",
+  logo: "/favicon.svg",
 } as const;

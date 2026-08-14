@@ -6,10 +6,29 @@ import postDistance from "@/assets/post-distance.jpg";
 import postDate from "@/assets/post-date.jpg";
 
 export type Block =
-  | { t: "p"; text: string }
-  | { t: "h2"; text: string }
+  | { t: "p"; text: string; className?: string }
+  | { t: "h2"; text: string; id?: string }
+  | { t: "h3"; text: string; id?: string }
   | { t: "ul"; items: string[] }
-  | { t: "quote"; text: string };
+  | { t: "ol"; items: string[] }
+  | { t: "quote"; text: string; author?: string }
+  | {
+      t: "callout";
+      title?: string;
+      text: string;
+      variant?: "tip" | "warning" | "info" | "highlight";
+    }
+  | {
+      t: "image";
+      src: string;
+      alt: string;
+      caption?: string;
+      width?: number;
+      height?: number;
+    }
+  | { t: "takeaways"; items: string[]; title?: string }
+  | { t: "do-dont"; dos: string[]; donts: string[]; title?: string }
+  | { t: "divider" };
 
 export interface Post {
   slug: string;
@@ -23,6 +42,12 @@ export interface Post {
   image: string;
   imageAlt: string;
   excerpt: string;
+  takeaways?: string[];
+  authorName?: string;
+  authorRole?: string;
+  authorBio?: string;
+  authorAvatar?: string;
+  keywords?: string[];
   body: Block[];
 }
 
@@ -40,10 +65,25 @@ export const posts: Post[] = [
     imageAlt: "A couple sitting close together on a sofa talking in warm evening light",
     excerpt:
       "Most couples do not have a communication problem. They have a timing problem, a tone problem, and a listening problem — and all three are fixable.",
+    takeaways: [
+      "Schedule difficult talks ahead of time instead of springing them when tired or stressed.",
+      "Express internal feelings rather than delivering accusatory verdicts.",
+      "Summarize your partner's point before stating your counter-argument.",
+      "Take structured 20-minute timeouts with a clear agreement on when you will resume.",
+    ],
+    keywords: ["relationship communication", "couples conflict", "active listening", "healthy fighting", "marriage advice"],
+    authorName: "The Heartlines Editors",
+    authorRole: "Relationship & Communication Specialists",
     body: [
       {
         t: "p",
         text: "When people say they have a communication problem, they usually mean something more specific: one of them raises hard things at the worst possible moment, the other hears criticism where none was intended, and both of them are already rehearsing a rebuttal before the sentence finishes. None of that is a character flaw. They are habits, and habits can be swapped.",
+      },
+      {
+        t: "callout",
+        variant: "tip",
+        title: "Golden Rule of Difficult Conversations",
+        text: "Never start a sensitive conversation after 9 PM, before morning coffee, or while either partner is multitasking.",
       },
       { t: "h2", text: "Pick the moment before you pick the words" },
       {
@@ -61,6 +101,20 @@ export const posts: Post[] = [
           "Describe the specific event, not the pattern: 'on Tuesday' beats 'always'.",
           "Say the feeling in one plain word: tired, lonely, embarrassed, scared.",
           "Make one concrete request instead of three vague complaints.",
+        ],
+      },
+      {
+        t: "do-dont",
+        title: "Communicating In Heated Moments: Dos & Don'ts",
+        dos: [
+          "Speak from your own perspective ('I feel overwhelmed')",
+          "Agree on a 20-minute pause if heart rates spike",
+          "Acknowledge valid points made by your partner",
+        ],
+        donts: [
+          "Use absolute statements like 'you always' or 'you never'",
+          "Bring up unrelated past mistakes from months ago",
+          "Walk out of the room without setting a time to talk again",
         ],
       },
       { t: "h2", text: "Listen to understand, not to reply" },
@@ -107,6 +161,13 @@ export const posts: Post[] = [
     imageAlt: "A handwritten letter, dried roses and a coffee cup on a deep plum table",
     excerpt:
       "An apology is the entry fee, not the repair. Here is what actually rebuilds trust, and how long it honestly takes.",
+    takeaways: [
+      "Rebuilding trust takes consistent actions over months, not a single emotional apology.",
+      "Provide total transparency and answer difficult questions patiently.",
+      "Establish clear, checkable agreements rather than vague promises.",
+      "Understand that healing follows a wave pattern with inevitable emotional setbacks.",
+    ],
+    keywords: ["rebuilding trust", "infidelity recovery", "trust in relationships", "how to forgive", "couples reconciliation"],
     body: [
       {
         t: "p",
@@ -165,6 +226,13 @@ export const posts: Post[] = [
     imageAlt: "A person holding a warm mug by a rain-streaked window",
     excerpt:
       "Breakup grief is real grief. It responds to the same things: time, routine, people, and not checking their profile at 1am.",
+    takeaways: [
+      "Strict no-contact is an emotional recovery tool that stops dopamine cravings.",
+      "Establish daily routines: consistent sleep, daylight, nutrition, and social anchors.",
+      "Closure is created internally over time, not delivered by an ex in a final conversation.",
+      "Only date again when an ex can be described calmly without idealizing or villainizing them.",
+    ],
+    keywords: ["how to heal from breakup", "breakup recovery", "no contact rule", "moving on after heartbreak", "breakup grief"],
     body: [
       {
         t: "p",
@@ -222,6 +290,13 @@ export const posts: Post[] = [
     imageAlt: "A phone on a bedside table showing a late-night video call, warm fairy lights behind",
     excerpt:
       "The couples who survive long distance are not the ones who talk the most. They are the ones who know when it ends.",
+    takeaways: [
+      "Establish a clear end date so the separation is finite and manageable.",
+      "Prioritize meaningful, focused communication over constant background calls.",
+      "Always have the next visit booked on the calendar before leaving.",
+      "Discuss expectations around jealousy, boundaries, and travel budgets openly.",
+    ],
+    keywords: ["long distance relationship", "LDR advice", "long distance love tips", "couples communication", "maintaining intimacy long distance"],
     body: [
       {
         t: "p",
@@ -274,6 +349,13 @@ export const posts: Post[] = [
     imageAlt: "Two hands loosely intertwined on a blush linen tablecloth beside a cup of tea",
     excerpt:
       "The useful part of love languages is not the categories. It is the discovery that your partner has been showing you love in a dialect you never learned to read.",
+    takeaways: [
+      "The 5 love languages are Words of Affirmation, Quality Time, Acts of Service, Touch, and Gifts.",
+      "Reframes conflicts from 'you don't care' to recognizing different styles of expressing love.",
+      "Love languages are metaphors; flexibility and effort across all forms matter.",
+      "Identify your love language by reflecting on the moments you felt most cherished in the past year.",
+    ],
+    keywords: ["five love languages", "love languages explained", "how to love your partner", "acts of service", "words of affirmation"],
     body: [
       {
         t: "p",
@@ -324,6 +406,13 @@ export const posts: Post[] = [
     imageAlt: "A handwritten note beside wilting roses on a dark surface",
     excerpt:
       "Not every irritating habit is a red flag. These are the patterns that are genuinely worth ending things over.",
+    takeaways: [
+      "A flaw is an internal trait; a red flag is a harmful pattern of behavior defended over time.",
+      "Contempt (mockery, disrespect, belittling) is the leading predictor of relationship demise.",
+      "Beware of control disguised as love (isolating from friends, controlling finances).",
+      "Do not fall in love with potential; evaluate the relationship as it exists today.",
+    ],
+    keywords: ["relationship red flags", "toxic relationship signs", "emotional abuse signs", "healthy boundaries", "dating warning signs"],
     body: [
       {
         t: "p",
@@ -378,6 +467,13 @@ export const posts: Post[] = [
     imageAlt: "A couple relaxing together at home in golden evening light",
     excerpt:
       "Long-term desire is not something you have. It is something you keep making, mostly out of attention and a little distance.",
+    takeaways: [
+      "Novelty and shared new experiences reignite attraction in familiar relationships.",
+      "Maintain healthy independence and individual interests to preserve desire.",
+      "Scheduled intimacy protects connection from the friction of daily life and fatigue.",
+      "Address underlying emotional resentments first before expecting physical intimacy.",
+    ],
+    keywords: ["keeping the spark alive", "long term relationship advice", "reviving romance", "marriage intimacy", "rekindling love"],
     body: [
       {
         t: "p",
@@ -430,6 +526,13 @@ export const posts: Post[] = [
     imageAlt: "Two coffee cups and hands almost touching across a small cafe table",
     excerpt:
       "A first date is not an interview or a performance. It is a short, low-cost test of one question: do I want a second evening of this?",
+    takeaways: [
+      "Choose short, low-stakes first dates (coffee, drinks, or a walk) with easy exit options.",
+      "Ask open-ended curiosity questions rather than conversational resume queries.",
+      "Distinguish between nervousness (awkward enthusiasm) and disinterest (emotional absence).",
+      "Communicate your intentions directly within 24 hours after the date.",
+    ],
+    keywords: ["first date advice", "first date tips", "dating conversation starters", "what to do on a first date", "dating etiquette"],
     body: [
       {
         t: "p",

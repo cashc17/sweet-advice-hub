@@ -4,6 +4,7 @@ import { useState } from "react";
 import { categories } from "@/content/categories";
 import { SITE } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./theme-toggle";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -38,20 +39,23 @@ export function SiteHeader() {
           </Link>
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label="Toggle navigation"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border md:hidden"
-        >
-          <Menu className="h-4 w-4" aria-hidden="true" />
-        </button>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label="Toggle navigation"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border md:hidden"
+          >
+            <Menu className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
       <nav
         aria-label="Mobile"
-        className={cn("border-t border-border/70 md:hidden", open ? "block" : "hidden")}
+        className={cn("border-t border-border/70 md:hidden bg-background/95 backdrop-blur shadow-md", open ? "block" : "hidden")}
       >
         <ul className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
           <li>
