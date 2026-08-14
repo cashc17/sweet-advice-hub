@@ -17,7 +17,7 @@ export function Prose({
       {blocks.map((block, i) => (
         <div key={i}>
           <BlockView block={block} />
-          {adAfter === i && ad ? <div className="my-8">{ad}</div> : null}
+          {adAfter === i && ad ? ad : null}
         </div>
       ))}
     </div>

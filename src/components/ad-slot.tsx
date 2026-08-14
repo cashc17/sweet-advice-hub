@@ -3,7 +3,7 @@ import { ADSENSE_PUBLISHER_ID } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 interface AdSlotProps {
-  /** AdSense ad unit ID (data-ad-slot). Empty renders a placeholder. */
+  /** AdSense ad unit ID (data-ad-slot). Empty hides the ad unit completely. */
   slot?: string;
   /** Reserved height so the layout never shifts when the ad loads. */
   minHeight?: number;
@@ -37,6 +37,11 @@ export function AdSlot({
     }
   }, [live]);
 
+  // If AdSense is not configured or slot is missing, do not show any ad card or placeholder
+  if (!live) {
+    return null;
+  }
+
   return (
     <aside
       aria-label={label}
@@ -46,23 +51,14 @@ export function AdSlot({
       <p className="mb-2 text-center text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </p>
-      {live ? (
-        <ins
-          className="adsbygoogle block"
-          style={{ display: "block", minHeight }}
-          data-ad-client={ADSENSE_PUBLISHER_ID}
-          data-ad-slot={slot}
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-      ) : (
-        <div
-          className="flex items-center justify-center rounded-lg border border-dashed border-border bg-muted/40 px-4 text-center text-xs text-muted-foreground"
-          style={{ minHeight }}
-        >
-          Ad space reserved — add your AdSense publisher ID in src/config/site.ts
-        </div>
-      )}
+      <ins
+        className="adsbygoogle block"
+        style={{ display: "block", minHeight }}
+        data-ad-client={ADSENSE_PUBLISHER_ID}
+        data-ad-slot={slot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
     </aside>
   );
 }
