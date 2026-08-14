@@ -19,7 +19,9 @@ Welcome to the **HeartlinesHub** blog content engine. This guide contains everyt
 
 | File / Folder | Purpose |
 | :--- | :--- |
-| **`src/content/posts.ts`** | **The main blog database.** All article texts, blocks, metadata, and dates live here. |
+| **`src/content/posts/`** | **Individual blog files.** Each article lives in its own dedicated file (e.g. `src/content/posts/my-new-post.ts`). |
+| **`src/content/posts/index.ts`** | **Master post index.** Automatically collects and exports all articles for the website. |
+| **`src/content/types.ts`** | TypeScript type definitions for `Post` and `Block`. |
 | **`src/content/categories.ts`** | Categories (*Dating, Relationships, Breakups, Self-Love*). |
 | **`src/assets/`** | Image assets (cover photos, author photos, inline illustrations). |
 | **`src/config/site.ts`** | Site metadata, Google Search Console token, and Google AdSense IDs. |
@@ -29,17 +31,45 @@ Welcome to the **HeartlinesHub** blog content engine. This guide contains everyt
 ## 2. Step-by-Step: Adding a New Blog Post
 
 1. **Add your featured image:** Place a high-quality `.jpg`, `.webp`, or `.png` in `src/assets/` (e.g. `src/assets/post-healthy-habits.jpg`).
-2. **Open `src/content/posts.ts`** and import your image at the top:
+2. **Create a new file in `src/content/posts/`** (e.g. `src/content/posts/my-new-article-slug.ts`):
    ```typescript
-   import postHealthyHabits from "@/assets/post-healthy-habits.jpg";
+   import postImage from "@/assets/post-healthy-habits.jpg";
+   import type { Post } from "../types";
+
+   export const post: Post = {
+     slug: "my-new-article-slug",
+     title: "Article Title — HeartlinesHub",
+     headline: "Main Headline",
+     description: "150-character SEO description for Google",
+     category: "relationships", // "dating" | "relationships" | "breakups" | "self-love"
+     date: "2026-08-14",
+     readingMinutes: 6,
+     image: postImage,
+     imageAlt: "Featured image description",
+     excerpt: "Short summary...",
+     takeaways: ["Point 1", "Point 2"],
+     keywords: ["relationship tips", "dating advice"],
+     authorName: "The HeartlinesHub Editors",
+     body: [
+       { t: "p", text: "Introduction..." },
+       { t: "h2", text: "First Subheading" },
+       { t: "p", text: "Details..." }
+     ]
+   };
+
+   export default post;
    ```
-3. **Add a new post object** to the `posts` array in `src/content/posts.ts`.
-4. **Save the file!** The post will automatically appear on:
-   - Homepage (`/`)
-   - Blog archive (`/blog`)
-   - Category archive (`/category/relationships`, etc.)
-   - Its dedicated post URL (`/blog/your-post-slug`)
-   - The XML Sitemap (`/sitemap.xml`)
+3. **Register it in `src/content/posts/index.ts`**:
+   Import your file and add it to the `posts` array:
+   ```typescript
+   import myNewPost from "./my-new-article-slug";
+
+   export const posts: Post[] = [
+     myNewPost,
+     // other posts...
+   ];
+   ```
+4. **Save!** The article will instantly appear across the Homepage, All Articles archive, Category page, Single article route, and XML Sitemap!
 
 ---
 
