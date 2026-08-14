@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import heroHands from "@/assets/hero-hands.jpg";
 import { AdSlot } from "@/components/ad-slot";
-import { LoadMoreGrid } from "@/components/load-more-grid";
 import { PostCard } from "@/components/post-card";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
 import { categories } from "@/content/categories";
@@ -42,7 +41,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const featured = sortedPosts[0]!;
-  const rest = sortedPosts.slice(1);
+  const latestPosts = sortedPosts.slice(1, 7);
 
   return (
     <div>
@@ -118,11 +117,33 @@ function Index() {
         <AdSlot slot={ADSENSE_SLOTS.inFeed} minHeight={250} />
 
         <section className="border-t border-border py-12" aria-labelledby="latest-heading">
-          <h2 id="latest-heading" className="font-display text-2xl font-semibold">
-            Latest advice
-          </h2>
-          <div className="mt-6">
-            <LoadMoreGrid posts={rest} initialCount={6} batchSize={6} />
+          <div className="flex items-center justify-between">
+            <h2 id="latest-heading" className="font-display text-2xl font-semibold">
+              Latest advice
+            </h2>
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            >
+              <span>View all</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {latestPosts.map((post) => (
+              <PostCard key={post.slug} post={post} />
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground shadow-xs transition-all hover:border-primary hover:bg-secondary/40 active:scale-95"
+            >
+              <span>Browse all {sortedPosts.length} articles</span>
+              <ArrowRight className="h-4 w-4 text-primary" />
+            </Link>
           </div>
         </section>
 
