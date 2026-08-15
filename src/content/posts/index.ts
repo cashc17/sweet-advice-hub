@@ -1,27 +1,19 @@
 import type { Post } from "../types";
 export type { Block, Post } from "../types";
 
-import howToCommunicate from "./how-to-communicate-better-in-a-relationship";
-import rebuildingTrust from "./rebuilding-trust-after-it-breaks";
-import howToHeal from "./how-to-heal-after-a-breakup";
-import longDistance from "./making-long-distance-relationships-work";
-import loveLanguages from "./understanding-the-five-love-languages";
-import redFlags from "./relationship-red-flags-worth-taking-seriously";
-import keepingSpark from "./keeping-the-spark-alive-long-term";
-import firstDate from "./first-date-advice-that-actually-helps";
-import theAnxiousAvoidantTrap from "./the-anxious-avoidant-trap";
+/**
+ * Automatically discovers and imports all article files inside `src/content/posts/`.
+ * Any new `.ts` file created in this directory is instantly and automatically
+ * registered across the whole website without editing this file!
+ */
+const postModules = import.meta.glob<{ post?: Post; default?: Post }>(
+  ["./*.ts", "!./index.ts"],
+  { eager: true }
+);
 
-export const posts: Post[] = [
-  theAnxiousAvoidantTrap,
-  howToCommunicate,
-  rebuildingTrust,
-  howToHeal,
-  longDistance,
-  loveLanguages,
-  redFlags,
-  keepingSpark,
-  firstDate,
-];
+export const posts: Post[] = Object.values(postModules)
+  .map((mod) => mod.post || mod.default)
+  .filter((p): p is Post => Boolean(p && p.slug));
 
 export const sortedPosts = [...posts].sort((a, b) => (a.date < b.date ? 1 : -1));
 
