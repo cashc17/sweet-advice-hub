@@ -21,7 +21,8 @@ export const ADSENSE_SLOTS = {
  * Google Search Console meta verification token (the `content` value of the
  * google-site-verification tag). Paste your token here when verifying.
  */
-export const GOOGLE_SITE_VERIFICATION = "";
+export const GOOGLE_SITE_VERIFICATION =
+  "pBwWQssCl5AkaXv3Wpm_2RY-UW0AHOghk2biMXmZZ5w";
 
 export const SITE = {
   name: "HeartlinesHub",
