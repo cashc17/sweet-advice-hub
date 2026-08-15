@@ -45,6 +45,11 @@ export const YANDEX_SITE_VERIFICATION = "a5d7c8e42b47f94d";
  */
 export const MICROSOFT_CLARITY_ID = "y2o092sgd3";
 
+/**
+ * Google Analytics (GA4) measurement ID
+ */
+export const GA_MEASUREMENT_ID = "G-6WLLZ93QR0";
+
 export const SITE = {
   name: "HeartlinesHub",
   url: "https://heartlineshub.vercel.app",

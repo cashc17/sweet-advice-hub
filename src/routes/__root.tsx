@@ -16,6 +16,7 @@ import { SiteFooter } from "@/components/site-footer";
 import {
   ADSENSE_PUBLISHER_ID,
   BING_SITE_VERIFICATION,
+  GA_MEASUREMENT_ID,
   GOOGLE_SITE_VERIFICATION,
   MICROSOFT_CLARITY_ID,
   SITE,
@@ -137,11 +138,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 const themeInitScript = `try{var t=localStorage.getItem("theme"),d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="dark"||(!t&&d)){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}`;
 const clarityScript = `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "${MICROSOFT_CLARITY_ID}");`;
+const gtagInitScript = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_MEASUREMENT_ID}');`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {GA_MEASUREMENT_ID ? (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            />
+            <script dangerouslySetInnerHTML={{ __html: gtagInitScript }} />
+          </>
+        ) : null}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {MICROSOFT_CLARITY_ID ? (
           <script dangerouslySetInnerHTML={{ __html: clarityScript }} />
