@@ -13,7 +13,12 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { ADSENSE_PUBLISHER_ID, GOOGLE_SITE_VERIFICATION, SITE } from "@/config/site";
+import {
+  ADSENSE_PUBLISHER_ID,
+  BING_SITE_VERIFICATION,
+  GOOGLE_SITE_VERIFICATION,
+  SITE,
+} from "@/config/site";
 
 function NotFoundComponent() {
   return (
@@ -88,6 +93,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       ...(GOOGLE_SITE_VERIFICATION
         ? [{ name: "google-site-verification", content: GOOGLE_SITE_VERIFICATION }]
+        : []),
+      ...(BING_SITE_VERIFICATION
+        ? [{ name: "msvalidate.01", content: BING_SITE_VERIFICATION }]
         : []),
     ],
     links: [

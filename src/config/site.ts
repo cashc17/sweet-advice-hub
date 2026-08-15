@@ -24,6 +24,12 @@ export const ADSENSE_SLOTS = {
 export const GOOGLE_SITE_VERIFICATION =
   "pBwWQssCl5AkaXv3Wpm_2RY-UW0AHOghk2biMXmZZ5w";
 
+/**
+ * Bing Webmaster Tools meta verification token (the `content` value of the
+ * msvalidate.01 tag). Paste your token here when verifying.
+ */
+export const BING_SITE_VERIFICATION = "186E8A3F31B939C0E27438E08C3F38E9";
+
 export const SITE = {
   name: "HeartlinesHub",
   url: "https://heartlineshub.vercel.app",
