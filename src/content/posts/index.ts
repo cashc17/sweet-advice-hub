@@ -9,8 +9,10 @@ import loveLanguages from "./understanding-the-five-love-languages";
 import redFlags from "./relationship-red-flags-worth-taking-seriously";
 import keepingSpark from "./keeping-the-spark-alive-long-term";
 import firstDate from "./first-date-advice-that-actually-helps";
+import theAnxiousAvoidantTrap from "./the-anxious-avoidant-trap";
 
 export const posts: Post[] = [
+  theAnxiousAvoidantTrap,
   howToCommunicate,
   rebuildingTrust,
   howToHeal,
