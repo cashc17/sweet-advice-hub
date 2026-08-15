@@ -30,6 +30,11 @@ export const GOOGLE_SITE_VERIFICATION =
  */
 export const BING_SITE_VERIFICATION = "186E8A3F31B939C0E27438E08C3F38E9";
 
+/**
+ * IndexNow API key for instant search engine indexing (Bing, Yandex, etc.)
+ */
+export const INDEXNOW_KEY = "4e97bc558b1c431e8faf3a426cf396ac";
+
 export const SITE = {
   name: "HeartlinesHub",
   url: "https://heartlineshub.vercel.app",
