@@ -35,6 +35,11 @@ export const BING_SITE_VERIFICATION = "186E8A3F31B939C0E27438E08C3F38E9";
  */
 export const INDEXNOW_KEY = "4e97bc558b1c431e8faf3a426cf396ac";
 
+/**
+ * Yandex Webmaster meta verification token
+ */
+export const YANDEX_SITE_VERIFICATION = "a5d7c8e42b47f94d";
+
 export const SITE = {
   name: "HeartlinesHub",
   url: "https://heartlineshub.vercel.app",

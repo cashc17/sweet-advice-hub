@@ -18,6 +18,7 @@ import {
   BING_SITE_VERIFICATION,
   GOOGLE_SITE_VERIFICATION,
   SITE,
+  YANDEX_SITE_VERIFICATION,
 } from "@/config/site";
 
 function NotFoundComponent() {
@@ -96,6 +97,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         : []),
       ...(BING_SITE_VERIFICATION
         ? [{ name: "msvalidate.01", content: BING_SITE_VERIFICATION }]
+        : []),
+      ...(YANDEX_SITE_VERIFICATION
+        ? [{ name: "yandex-verification", content: YANDEX_SITE_VERIFICATION }]
         : []),
     ],
     links: [
