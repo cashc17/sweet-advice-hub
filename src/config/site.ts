@@ -40,6 +40,11 @@ export const INDEXNOW_KEY = "4e97bc558b1c431e8faf3a426cf396ac";
  */
 export const YANDEX_SITE_VERIFICATION = "a5d7c8e42b47f94d";
 
+/**
+ * Microsoft Clarity analytics tracking ID
+ */
+export const MICROSOFT_CLARITY_ID = "y2o092sgd3";
+
 export const SITE = {
   name: "HeartlinesHub",
   url: "https://heartlineshub.vercel.app",

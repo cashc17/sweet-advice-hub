@@ -17,6 +17,7 @@ import {
   ADSENSE_PUBLISHER_ID,
   BING_SITE_VERIFICATION,
   GOOGLE_SITE_VERIFICATION,
+  MICROSOFT_CLARITY_ID,
   SITE,
   YANDEX_SITE_VERIFICATION,
 } from "@/config/site";
@@ -135,12 +136,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 const themeInitScript = `try{var t=localStorage.getItem("theme"),d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="dark"||(!t&&d)){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}`;
+const clarityScript = `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "${MICROSOFT_CLARITY_ID}");`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {MICROSOFT_CLARITY_ID ? (
+          <script dangerouslySetInnerHTML={{ __html: clarityScript }} />
+        ) : null}
         <HeadContent />
       </head>
       <body>
