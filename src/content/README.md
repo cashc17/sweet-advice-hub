@@ -1,4 +1,4 @@
-# 📖 HeartlinesHub Blog Publishing & Styling Master Guide
+# 📖 HeartlinesHub Blog Publishing & Editorial Master Guide
 
 Welcome to the **HeartlinesHub** content engine. This guide contains everything you need to write, style, optimize for **Google Search Console (SEO)**, and monetize with **Google AdSense**.
 
@@ -6,13 +6,14 @@ Welcome to the **HeartlinesHub** content engine. This guide contains everything 
 
 ## 📑 Table of Contents
 1. [Where Articles Are Saved](#1-where-articles-are-saved)
-2. [Step-by-Step: Adding a New Blog Post](#2-step-by-step-adding-a-new-blog-post)
-3. [Rich Block Types & Custom Styling Reference](#3-rich-block-types--custom-styling-reference)
-4. [Built-in Reader & Editorial Features](#4-built-in-reader--editorial-features)
-5. [SEO Optimization Master Checklist](#5-seo-optimization-master-checklist)
-6. [Google Search Console Setup](#6-google-search-console-setup)
-7. [Google AdSense Setup](#7-google-adsense-setup)
-8. [Full Copy-Paste Blog Post Template](#8-full-copy-paste-blog-post-template)
+2. [Golden Editorial Standards & Requirements](#2-golden-editorial-standards--requirements)
+3. [Step-by-Step: Adding a New Blog Post](#3-step-by-step-adding-a-new-blog-post)
+4. [Rich Block Types & Custom Styling Reference](#4-rich-block-types--custom-styling-reference)
+5. [Built-in Reader & Editorial Features](#5-built-in-reader--editorial-features)
+6. [SEO Optimization Master Checklist](#6-seo-optimization-master-checklist)
+7. [Google Search Console & Bing Setup](#7-google-search-console--bing-setup)
+8. [Google AdSense Setup](#8-google-adsense-setup)
+9. [Full Copy-Paste Blog Post Template](#9-full-copy-paste-blog-post-template)
 
 ---
 
@@ -21,103 +22,166 @@ Welcome to the **HeartlinesHub** content engine. This guide contains everything 
 | File / Folder | Purpose |
 | :--- | :--- |
 | **`src/content/posts/`** | **Individual blog files.** Each article lives in its own dedicated file (e.g. `src/content/posts/my-new-post.ts`). |
-| **`src/content/posts/index.ts`** | **Master post index.** Automatically collects and exports all articles for the website. |
+| **`src/content/posts/index.ts`** | **Master post index.** Automatically discovers and exports all `.ts` article files using Vite's `import.meta.glob`. |
 | **`src/content/types.ts`** | TypeScript type definitions for `Post` and `Block`. |
 | **`src/content/categories.ts`** | Categories (*Dating, Relationships, Breakups, Self-Love*). |
 | **`src/assets/`** | Image assets (cover photos, author photos, inline illustrations). |
-| **`src/config/site.ts`** | Site metadata, Google Search Console token, and Google AdSense IDs. |
+| **`src/config/site.ts`** | Site metadata, search verification tokens, Analytics, and Google AdSense IDs. |
 
 ---
 
-## 2. Step-by-Step: Adding a New Blog Post
+## 2. Golden Editorial Standards & Requirements
 
-1. **Add your featured image:** Place a high-quality `.jpg`, `.webp`, or `.png` in `src/assets/` (e.g. `src/assets/post-healthy-habits.jpg`).
-2. **Create a new file in `src/content/posts/`** (e.g. `src/content/posts/my-new-article-slug.ts`):
+To ensure every article published on **HeartlinesHub** ranks high on search engines (Google, Bing, Perplexity) and provides exceptional value to readers, all articles must adhere to the following 5 Golden Rules:
+
+### 📏 1. Minimum Article Length: 1,000+ Words
+- Every article must contain at least **1,000 words** of thorough, thoughtful, and actionable advice.
+- Avoid thin filler or fluff. Provide real psychological insights, conversational scripts, practical exercises, and clear examples.
+
+### 🖼️ 2. Minimum 2+ Distinct High-Quality Clickable Images
+- **Header Featured Image:** 1 high-resolution cover photo at the top of the post (`post.image`).
+- **Inline Editorial Images:** At least **1 to 2 distinct inline images** placed strategically between major sections (`t: "image"`).
+- **100% Unique Images (No Repetition):** Never reuse the same image across different articles or inside the same article.
+- **Interactive & Clickable:** All images are automatically equipped with the built-in Lightbox Zoom feature so readers can click to view them in full resolution.
+
+### ✍️ 3. Authentic Human Voice & Tone
+- Articles must sound **100% human-written, warm, compassionate, and grounded**—like advice from an empathetic, level-headed mentor.
+- Avoid robotic AI tropes, stiff clichés, or generic summaries.
+- Use relatable stories, realistic couples dialogues, and emotional validation.
+
+### 🔍 4. SEO-Friendly Architecture
+- **Keywords:** Integrate primary and secondary long-tail keywords naturally into headings (`h2`, `h3`), intro paragraphs, takeaways, and FAQ questions.
+- **Structured Schema:** Every post must include `keywords`, `takeaways`, and `faqs` to generate Google `BlogPosting`, `BreadcrumbList`, and `FAQPage` rich snippets.
+
+### 💡 5. Unique Topics Every Time
+- Every article must cover a fresh, distinctive relationship theme (e.g. communication scripts, emotional maturity, setting boundaries, rebuilding trust, attachment styles, healing after breakups).
+
+---
+
+## 3. Step-by-Step: Adding a New Blog Post
+
+1. **Add your high-resolution images:**
+   Place your images in `src/assets/` (e.g. `src/assets/post-boundaries-cover.jpg` and `src/assets/post-boundaries-inline.jpg`).
+
+2. **Create a new file in `src/content/posts/`** (e.g. `src/content/posts/how-to-set-boundaries.ts`):
    ```typescript
-   import postImage from "@/assets/post-healthy-habits.jpg";
+   import coverImage from "@/assets/post-boundaries-cover.jpg";
+   import inlineImage from "@/assets/post-boundaries-inline.jpg";
+   import { SITE } from "@/config/site";
    import type { Post } from "../types";
 
    export const post: Post = {
-     slug: "my-new-article-slug",
-     title: "Article Title — HeartlinesHub",
-     headline: "Main Headline for Readers",
-     description: "150-character SEO description for Google",
+     slug: "how-to-set-boundaries-without-guilt",
+     title: "How to Set Boundaries in a Relationship Without Feeling Guilty",
+     headline: "How to set boundaries in a relationship without feeling guilty",
+     description: "A compassionate, practical guide to establishing healthy emotional and physical boundaries with your partner while preserving intimacy.",
      category: "relationships", // "dating" | "relationships" | "breakups" | "self-love"
-     date: "2026-08-14",
-     readingMinutes: 6,
-     image: postImage,
-     imageAlt: "Featured image description for accessibility and SEO",
-     excerpt: "Short 2-sentence summary...",
+     date: "2026-08-16",
+     readingMinutes: 8,
+     image: coverImage,
+     imageAlt: "A calm, serene morning tea table in soft warm window light",
+     excerpt: "Setting boundaries is not about building walls—it is about teaching the person you love how to safely hold your heart.",
      takeaways: [
-       "Key takeaway point #1",
-       "Key takeaway point #2"
+       "Boundaries are guidelines for connection, not ultimatums or punishments.",
+       "Guilt often stems from confusing self-preservation with selfishness.",
+       "Clear communication early prevents explosive resentment later.",
+       "Healthy partners welcome clarity over quiet withdrawal."
      ],
-     keywords: ["relationship tips", "dating advice", "healthy communication"],
-     authorName: "The HeartlinesHub Editors",
+     keywords: [
+       "healthy relationship boundaries",
+       "how to set boundaries without guilt",
+       "relationship communication tips",
+       "self love in marriage",
+       "emotional boundaries with partner"
+     ],
+     authorName: SITE.author,
+     authorRole: SITE.authorRole,
+     faqs: [
+       {
+         q: "What should I do if my partner reacts defensively to a boundary?",
+         a: "Reassure them of your affection first: 'I love you and want us to be closer, which is why I need to share what helps me feel safe.' Give them time to process without retracting your need."
+       },
+       {
+         q: "How do I know if I'm setting a boundary or making a demand?",
+         a: "A boundary describes what you will do to protect your wellbeing ('If yelling starts, I will step outside for 20 minutes'). A demand attempts to control the other person ('You are not allowed to get angry')."
+       }
+     ],
      body: [
-       { t: "p", text: "Introduction paragraph..." },
-       { t: "h2", text: "First Section Subheading" },
-       { t: "p", text: "Detailed explanation..." }
+       { t: "p", text: "When you love someone deeply, stating what you need can feel like an act of betrayal..." },
+       { t: "h2", text: "Why We Confuse Boundaries with Rejection" },
+       { t: "p", text: "Most people who struggle with boundaries were taught that love requires total self-abandonment..." },
+       {
+         t: "callout",
+         variant: "tip",
+         icon: "Heart",
+         title: "The Golden Rule of Boundaries",
+         text: "A boundary is a bridge that allows two distinct individuals to meet without either of them disappearing."
+       },
+       {
+         t: "image",
+         src: inlineImage,
+         alt: "Two hands resting gently beside open notebooks on a rustic wooden table",
+         caption: "Direct, calm conversations build safety and deepen emotional connection."
+       },
+       {
+         t: "do-dont",
+         title: "Setting Healthy Boundaries: What to Do & What to Avoid",
+         dos: [
+           "Speak from your personal experience ('I need quiet time to recharge')",
+           "Set clear, actionable guidelines before conflicts arise",
+           "Acknowledge and validate your partner's emotional response"
+         ],
+         donts: [
+           "Use silent treatment as a substitute for honest communication",
+           "Apologize for having legitimate emotional or physical limits",
+           "Set ultimatums in moments of intense anger or exhaustion"
+         ]
+       },
+       {
+         t: "quote",
+         text: "You cannot pour from an empty cup, and you cannot build lasting love on a foundation of quiet resentment.",
+         author: "HeartlinesHub Editorial Team"
+       }
      ]
    };
 
    export default post;
    ```
-3. **Register it in `src/content/posts/index.ts`**:
-   Import your file and add it to the `posts` array:
-   ```typescript
-   import myNewPost from "./my-new-article-slug";
 
-   export const posts: Post[] = [
-     myNewPost,
-     // other posts...
-   ];
-   ```
-4. **Save!** The article will instantly appear across the Homepage, All Articles archive, Category page, Single article route, and XML Sitemap!
+3. **Automatic Registration!**
+   Thanks to Vite's `import.meta.glob`, you **do NOT need to edit `index.ts`**. The website automatically discovers your new file, calculates the reading time, adds it to the Homepage, `/blog` archive, categories, `/sitemap.xml`, and Google SEO schemas!
 
 ---
 
-## 3. Rich Block Types & Custom Styling Reference
+## 4. Rich Block Types & Custom Styling Reference
 
-You can build rich, magazine-grade layouts using the following block types inside the `body` array:
+Build magazine-grade layouts with these block types inside the `body` array:
 
 ### 1. Paragraph (`p`)
-Supports custom Tailwind classes via `className`:
 ```typescript
-{
-  t: "p",
-  text: "Standard paragraph text goes here."
-},
-{
-  t: "p",
-  text: "This paragraph has a larger introductory font.",
-  className: "text-xl font-medium text-primary"
-}
+{ t: "p", text: "Standard paragraph text goes here." }
 ```
 
 ### 2. Headings (`h2` & `h3`)
-Automatically generates smooth-scrollable HTML IDs for the Table of Contents:
+Automatically generates smooth-scroll IDs for the Table of Contents:
 ```typescript
-{ t: "h2", text: "1. The 20-Minute Cooling Rule" },
-{ t: "h3", text: "Why Physical Distance Matters First" }
+{ t: "h2", text: "1. Pick the Moment Before You Pick the Words" }
 ```
 
-### 3. Inline Images with Captions (`image`)
-Embed illustrations or photos directly within the article flow:
+### 3. Inline Clickable Images with Captions (`image`)
 ```typescript
-import inlinePhoto from "@/assets/hero-hands.jpg";
+import inlinePhoto from "@/assets/post-attachment.jpg";
 
 {
   t: "image",
   src: inlinePhoto,
-  alt: "Couple having an unhurried conversation in a cafe",
-  caption: "Couples who practice daily eye contact report 40% fewer explosive arguments."
+  alt: "Two coffee cups on a wooden table in morning sunlight",
+  caption: "Couples who practice daily unhurried connection report greater resilience against conflict."
 }
 ```
 
 ### 4. Custom Icon Callouts (`callout`)
-Available variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
-Supports built-in Lucide icons (e.g. `"Heart"`, `"Sparkles"`, `"ShieldCheck"`, `"Flame"`) or direct emojis (e.g. `"💡"`, `"❤️"`, `"🌿"`):
+Variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
 ```typescript
 {
   t: "callout",
@@ -125,18 +189,10 @@ Supports built-in Lucide icons (e.g. `"Heart"`, `"Sparkles"`, `"ShieldCheck"`, `
   icon: "💡",
   title: "Golden Rule of Difficult Conversations",
   text: "Never start a sensitive conversation after 9 PM or while multitasking."
-},
-{
-  t: "callout",
-  variant: "custom",
-  icon: "Heart",
-  title: "The 5:1 Warmth Ratio",
-  text: "Stable marriages maintain at least five positive interactions for every one negative interaction."
 }
 ```
 
-### 5. Stylish Icon List (`icon-list`)
-Create beautifully structured multi-point breakdowns with custom icons:
+### 5. Multi-Point Icon List (`icon-list`)
 ```typescript
 {
   t: "icon-list",
@@ -149,42 +205,13 @@ Create beautifully structured multi-point breakdowns with custom icons:
     {
       icon: "Heart",
       title: "Name the emotion in one plain word",
-      text: "Tired, lonely, overwhelmed, embarrassed, or scared."
+      text: "Tired, lonely, overwhelmed, or scared."
     }
   ]
 }
 ```
 
-### 6. Bullet & Numbered Lists (`ul` & `ol`)
-```typescript
-{
-  t: "ul",
-  items: [
-    "Focus on one issue at a time",
-    "Never bring past arguments into the present",
-    "Listen without interrupting"
-  ]
-},
-{
-  t: "ol",
-  items: [
-    "Step 1: Notice your physical tension",
-    "Step 2: Ask for a temporary timeout",
-    "Step 3: Agree on a restart time"
-  ]
-}
-```
-
-### 7. Styled Blockquotes (`quote`)
-```typescript
-{
-  t: "quote",
-  text: "Love does not die from conflict; it dies from unresolved resentment.",
-  author: "Dr. John Gottman"
-}
-```
-
-### 8. Do's & Don'ts Comparison Box (`do-dont`)
+### 6. Do's & Don'ts Comparison Cards (`do-dont`)
 ```typescript
 {
   t: "do-dont",
@@ -202,82 +229,77 @@ Create beautifully structured multi-point breakdowns with custom icons:
 }
 ```
 
-### 9. Key Takeaways Box (`takeaways`)
+### 7. Key Takeaways Summary (`takeaways`)
 ```typescript
 {
   t: "takeaways",
   title: "Summary of Key Points",
   items: [
     "Timing matters more than the exact wording.",
-    "Express feelings rather than verdicts."
+    "Express internal feelings rather than external blame."
   ]
 }
 ```
 
-### 10. Inline FAQ Accordion (`faq`)
-Generates an interactive FAQ box with Google `FAQPage` rich snippet support:
+### 8. Styled Blockquotes (`quote`)
 ```typescript
 {
-  t: "faq",
-  title: "Frequently Asked Questions",
-  items: [
-    {
-      q: "What should I do if my partner shuts down?",
-      a: "Lower the stakes, offer a calm break, and let them know you care about their perspective when they are ready."
-    }
-  ]
+  t: "quote",
+  text: "Love does not die from conflict; it dies from unresolved resentment.",
+  author: "HeartlinesHub Editorial Team"
 }
 ```
 
 ---
 
-## 4. Built-in Reader & Editorial Features
+## 5. Built-in Reader & Editorial Features
 
-Every article automatically includes the following interactive features:
-- 📊 **Reading Progress Bar:** Tracks scroll percentage at the very top of the window.
-- 📑 **Table of Contents:** Auto-extracts all `h2`/`h3` sections with active scroll highlighting.
-- 🔗 **Social Share Suite:** One-tap sharing to WhatsApp, X (Twitter), Facebook, LinkedIn, and Copy Link with toast.
-- ⏭️ **Previous & Next Article Links:** Encourages binge-reading across articles.
-- 👤 **E-E-A-T Author Profile Card:** Shows author bio, credentials, and avatar.
-- ❓ **Collapsible FAQ Section:** Supports structured FAQ schema for Google Search.
-
----
-
-## 5. SEO Optimization Master Checklist
-
-Every article in HeartlinesHub comes automatically armed with enterprise SEO architecture:
-
-- [x] **Single `<h1>` Title Tag:** Automatically sets the article headline as the only H1.
-- [x] **Schema.org Structured Data (`BlogPosting`, `BreadcrumbList`, `FAQPage`):** Enables Google Rich Snippets, Author badges, Star ratings, and Knowledge Graph inclusion.
-- [x] **Dynamic Canonical URLs:** Prevents duplicate content penalties.
-- [x] **OpenGraph & Twitter Cards:** Generates large preview cards when shared on social media.
-- [x] **Automated XML Sitemap:** Live at `/sitemap.xml` with priority and changefreq.
-- [x] **Zero-CLS AdSense Containers:** Prevents layout shifting to protect Google Core Web Vitals.
+- 🔍 **Interactive Image Lightbox:** Clicking any image (header or inline) opens a crystal-clear full-resolution zoom view.
+- 📊 **Reading Progress Bar:** Tracks scroll percentage smoothly at the very top.
+- 📑 **Table of Contents:** Auto-extracts all `h2`/`h3` headings with live scroll spy.
+- 🔗 **Social Share Suite:** One-tap sharing to WhatsApp, X (Twitter), Facebook, LinkedIn, and Copy Link.
+- ⏭️ **Previous & Next Article Links:** Automatic chronological navigation.
+- 👤 **E-E-A-T Author Profile Card:** Shows verified editorial credentials.
+- ❓ **Collapsible FAQ Section:** Generates Google `FAQPage` search snippet schemas.
+- ♾️ **Automatic Infinite Scroll:** Smooth auto-loading on the blog archive page.
 
 ---
 
-## 6. Google Search Console Setup
+## 6. SEO Optimization Master Checklist
 
-1. Open [Google Search Console](https://search.google.com/search-console).
-2. Add your property (e.g. `https://heartlineshub.vercel.app`).
-3. Choose **HTML Tag Verification** and copy your token string.
-4. Paste it into `src/config/site.ts`:
-   ```typescript
-   export const GOOGLE_SITE_VERIFICATION = "your-token-here";
-   ```
-5. Submit your sitemap at **Sitemaps** ➔ `sitemap.xml`.
+- [x] **Single `<h1>` Title Tag:** Automatic headline hierarchy.
+- [x] **Schema.org Structured Data (`BlogPosting`, `BreadcrumbList`, `FAQPage`):** Automatic Google rich snippets.
+- [x] **Absolute Canonical URLs:** Uses `https://heartlineshub.vercel.app/...` everywhere.
+- [x] **OpenGraph & Twitter Cards:** Generates rich social media previews.
+- [x] **Automated XML Sitemap:** Live at `/sitemap.xml`.
+- [x] **Search Engine Protocols:** Google, Bing, IndexNow (`4e97bc558b1c431e8faf3a426cf396ac.txt`), Yandex (`yandex_a5d7c8e42b47f94d.html`), OpenAI (`OAI-SearchBot`), and Perplexity (`PerplexityBot`).
 
 ---
 
-## 7. Google AdSense Setup
+## 7. Google Search Console & Bing Setup
 
-1. Open [Google AdSense](https://adsense.google.com/).
-2. Paste your publisher ID into `src/config/site.ts`:
+1. **Google Search Console:**
+   - Add property `https://heartlineshub.vercel.app/` (URL prefix).
+   - Token is configured in `src/config/site.ts`: `pBwWQssCl5AkaXv3Wpm_2RY-UW0AHOghk2biMXmZZ5w`.
+   - Submit sitemap: `sitemap.xml`.
+
+2. **Bing Webmaster Tools & IndexNow:**
+   - Token configured in `src/config/site.ts`: `186E8A3F31B939C0E27438E08C3F38E9`.
+   - IndexNow verification key live at: `/4e97bc558b1c431e8faf3a426cf396ac.txt`.
+
+3. **Yandex Webmaster:**
+   - HTML verification live at: `/yandex_a5d7c8e42b47f94d.html`.
+
+---
+
+## 8. Google AdSense Setup
+
+1. Paste your publisher ID into `src/config/site.ts`:
    ```typescript
    export const ADSENSE_PUBLISHER_ID = "ca-pub-1234567890123456";
    ```
-3. Update `public/ads.txt` with your ID:
+2. Update `public/ads.txt` with your ID:
    ```text
    google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
    ```
-4. While `ADSENSE_PUBLISHER_ID` is empty, **no placeholders or empty boxes are shown to users**. Once filled, real ads appear smoothly without layout shift.
+3. While `ADSENSE_PUBLISHER_ID` is empty, **no empty boxes or placeholders are shown to readers**. Once filled, clean ads appear without layout shifting (Zero CLS).

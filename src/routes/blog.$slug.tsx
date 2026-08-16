@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AdSlot } from "@/components/ad-slot";
 import { AuthorCard } from "@/components/author-card";
+import { ClickableImage } from "@/components/image-lightbox";
 import { FaqSection } from "@/components/faq-section";
 import { KeyTakeaways } from "@/components/key-takeaways";
 import { PostCard } from "@/components/post-card";
@@ -215,7 +216,7 @@ function PostPage() {
           </header>
 
           <figure className="mt-6 overflow-hidden rounded-3xl border border-border shadow-xs">
-            <img
+            <ClickableImage
               src={post.image}
               alt={post.imageAlt}
               width={1200}

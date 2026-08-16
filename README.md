@@ -165,59 +165,113 @@ export const SITE = {
 
 ---
 
-## ✍️ How to Publish & Style Blog Posts
+## ✍️ How to Write & Publish a Blog Post
 
-All articles live in **[`src/content/posts.ts`](src/content/posts.ts)**.
+> [!TIP]
+> 📚 **Complete Editorial Handbook:** For the full master guide with all rich block styling, code templates, interactive components, and writing tutorials, see **[`src/content/README.md`](src/content/README.md)**.
 
-### Minimal Post Example:
+### 🌟 The 5 Golden Editorial Standards
+Every article on HeartlinesHub must meet these core quality standards to rank on search engines (Google, Bing, Perplexity) and deliver maximum value to readers:
+
+1. **📏 1,000+ Words Minimum:** In-depth, substantive, and practical guidance with realistic examples, actionable scripts, and psychological insights.
+2. **🖼️ Minimum 2+ Unique Clickable Images:** 
+   - 1 Header Featured Image (`post.image`).
+   - At least 1 to 2 distinct Inline Editorial Images (`t: "image"`).
+   - **Never reuse images:** Every image across every article must be unique.
+   - **Clickable Lightbox:** All images are automatically clickable for full-resolution zoom.
+3. **✍️ 100% Authentic Human Voice:** Written in an empathetic, warm, level-headed tone that feels like guidance from a trusted mentor—never robotic or generic.
+4. **🔍 SEO Architecture:** Naturally woven keywords in headings (`h2`/`h3`), intro, `takeaways`, and structured `faqs` for Google `FAQPage` rich snippets.
+5. **💡 Unique Topics:** Every article tackles a fresh, distinctive relationship, dating, or breakup theme.
+
+---
+
+### 🚀 Step-by-Step: Adding a New Post
+
+1. **Place your images in `src/assets/`** (e.g. `src/assets/post-healthy-habits.jpg` and `src/assets/post-healthy-habits-inline.jpg`).
+2. **Create a new file in `src/content/posts/`** (e.g. `src/content/posts/healthy-relationship-habits.ts`):
+
 ```typescript
-import postImage from "@/assets/your-cover-image.jpg";
+import coverImage from "@/assets/post-healthy-habits.jpg";
+import inlineImage from "@/assets/post-healthy-habits-inline.jpg";
+import { SITE } from "@/config/site";
+import type { Post } from "../types";
 
-{
-  slug: "how-to-communicate-better",
-  title: "How to Communicate Better in a Relationship",
-  headline: "How to communicate better in a relationship",
-  description: "Nine practical habits to lower argument temperature and feel heard.",
+export const post: Post = {
+  slug: "healthy-relationship-habits-that-last",
+  title: "10 Daily Habits That Keep Relationships Strong Long-Term",
+  headline: "10 daily habits that keep relationships strong long-term",
+  description: "Ten grounded, evidence-based daily micro-habits that protect intimacy, prevent resentment, and build enduring partnership.",
   category: "relationships", // "dating" | "relationships" | "breakups" | "self-love"
-  date: "2026-08-14",
-  readingMinutes: 6,
-  image: postImage,
-  imageAlt: "Couple having a warm conversation on a couch",
-  excerpt: "Most communication problems are actually timing and listening problems.",
+  date: "2026-08-16",
+  readingMinutes: 8,
+  image: coverImage,
+  imageAlt: "Two warm ceramic coffee mugs on a sunlit wooden breakfast table",
+  excerpt: "Long-term love is not sustained by grand romantic gestures once a year; it is built in the small, unhurried daily habits.",
   takeaways: [
-    "Pick the right moment before picking the words.",
-    "Speak from your internal feelings rather than delivering verdicts.",
-    "Summarize your partner's point before stating your counter."
+    "Daily 10-minute check-ins reduce explosive arguments by creating steady connection.",
+    "Express internal feelings rather than delivering accusatory verdicts.",
+    "Acknowledge repair attempts quickly, even during disagreements."
   ],
-  keywords: ["relationship advice", "healthy communication", "dating tips"],
-  authorName: "The HeartlinesHub Editors",
-  authorRole: "Relationship Specialists",
+  keywords: [
+    "healthy relationship habits",
+    "long term marriage advice",
+    "daily relationship tips",
+    "how to keep love strong"
+  ],
+  authorName: SITE.author,
+  authorRole: SITE.authorRole,
+  faqs: [
+    {
+      q: "What is the single most effective daily habit for couples?",
+      a: "Ten minutes of completely undivided attention every morning or evening without phones or screens."
+    }
+  ],
   body: [
-    { t: "p", text: "Introduction paragraph..." },
-    { 
-      t: "callout", 
-      variant: "tip", 
-      title: "Pro-Tip", 
-      text: "Never start a difficult conversation after 10 PM." 
+    { t: "p", text: "Long-term love is rarely decided by the big vacations or anniversary dinners..." },
+    {
+      t: "callout",
+      variant: "tip",
+      icon: "Heart",
+      title: "The Golden Habit",
+      text: "Never let the day end without a moment of warm, sincere appreciation."
     },
-    { t: "h2", text: "1. Open With Feeling, Not Verdicts" },
-    { t: "p", text: "Detailed explanation..." },
-    { 
-      t: "do-dont", 
-      title: "Communication Best Practices", 
-      dos: ["Speak for yourself", "Take pauses when heated"], 
-      donts: ["Say 'you always'", "Bring up past mistakes"] 
+    { t: "h2", text: "1. The 10-Minute Daily Emotional Check-In" },
+    { t: "p", text: "Couples who drift apart rarely do so because of sudden tragedy; they drift in silence..." },
+    {
+      t: "image",
+      src: inlineImage,
+      alt: "Two people sitting quietly together enjoying morning tea",
+      caption: "Small, consistent moments of undivided attention create deep emotional resilience."
     },
-    { 
-      t: "quote", 
-      text: "Being understood is not the same as being agreed with.", 
-      author: "HeartlinesHub Editorial" 
+    {
+      t: "do-dont",
+      title: "Daily Communication: Dos & Don'ts",
+      dos: [
+        "Ask open questions like 'How did you feel about today?'",
+        "Put your phone face down when your partner speaks",
+        "Offer physical warmth before discussing difficult topics"
+      ],
+      donts: [
+        "Multitask while listening to important conversations",
+        "Offer unsolicited fixes when your partner just wants empathy",
+        "Let small grievances sit in silence for weeks"
+      ]
+    },
+    {
+      t: "quote",
+      text: "Being understood is not the same as being agreed with, but it is always where healing begins.",
+      author: "HeartlinesHub Editorial Team"
     }
   ]
-}
+};
+
+export default post;
 ```
 
-*For complete details on all block types and custom styles, see [`src/content/README.md`](src/content/README.md).*
+3. **That's it! Zero Manual Imports:**
+   Vite's auto-discovery engine in [`src/content/posts/index.ts`](src/content/posts/index.ts) automatically discovers your new file and publishes it across the Homepage, All Articles archive, Category page, and XML Sitemap!
+
+📖 *For the complete reference of all block types, visit **[`src/content/README.md`](src/content/README.md)**.*
 
 ---
 

@@ -16,6 +16,7 @@ import {
   TriangleAlert,
   X,
 } from "lucide-react";
+import { ClickableImage } from "./image-lightbox";
 import { FaqSection } from "./faq-section";
 import { KeyTakeaways } from "./key-takeaways";
 
@@ -216,13 +217,13 @@ function BlockView({ block }: { block: Block }) {
     case "image":
       return (
         <figure className="my-10">
-          <img
+          <ClickableImage
             src={block.src}
             alt={block.alt}
             width={block.width || 1200}
             height={block.height || 800}
-            loading="lazy"
             className="w-full rounded-2xl border border-border object-cover shadow-xs max-h-[500px]"
+            caption={block.caption}
           />
           {block.caption ? (
             <figcaption className="mt-3 text-center text-xs text-muted-foreground sm:text-sm">
