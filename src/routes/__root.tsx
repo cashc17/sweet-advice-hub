@@ -20,6 +20,7 @@ import {
   GOOGLE_SITE_VERIFICATION,
   MICROSOFT_CLARITY_ID,
   SITE,
+  UMAMI_WEBSITE_ID,
   YANDEX_SITE_VERIFICATION,
 } from "@/config/site";
 
@@ -156,6 +157,13 @@ function RootShell({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {MICROSOFT_CLARITY_ID ? (
           <script dangerouslySetInnerHTML={{ __html: clarityScript }} />
+        ) : null}
+        {UMAMI_WEBSITE_ID ? (
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={UMAMI_WEBSITE_ID}
+          />
         ) : null}
         <HeadContent />
       </head>

@@ -50,6 +50,11 @@ export const MICROSOFT_CLARITY_ID = "y2o092sgd3";
  */
 export const GA_MEASUREMENT_ID = "G-6WLLZ93QR0";
 
+/**
+ * Umami Analytics website ID
+ */
+export const UMAMI_WEBSITE_ID = "fb269b00-22fb-4e00-a3ae-f6700e2e9dfb";
+
 export const SITE = {
   name: "HeartlinesHub",
   url: "https://heartlineshub.vercel.app",
