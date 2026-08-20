@@ -1,5 +1,3 @@
-import postCompromiseCover from "@/assets/post-compromise-cover.jpg";
-import postCompromiseInline from "@/assets/post-compromise-inline.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -12,7 +10,7 @@ export const post: Post = {
   category: "self-love",
   date: "2026-08-20",
   readingMinutes: 10,
-  image: postCompromiseCover,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232664/heartlines/post-compromise-cover.jpg",
   imageAlt: "A mature couple walking warmly hand in hand down a tranquil tree-lined autumn path in soft afternoon light",
   excerpt:
     "Compromise is about adjusting preferences to build a shared life; self-abandonment is sacrificing your core values, identity, or sanity to keep the peace.",
@@ -94,7 +92,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: postCompromiseInline,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232665/heartlines/post-compromise-inline.jpg",
       alt: "Two wooden jigsaw puzzle pieces interlocking smoothly together on a rustic surface",
       caption:
         "True partnership is not about shaving off your core identity to fit, but finding a harmonic fit where both whole shapes thrive.",

@@ -1,4 +1,3 @@
-import postCommunication from "@/assets/post-communication.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-05-29",
   readingMinutes: 6,
-  image: postCommunication,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232662/heartlines/post-communication.jpg",
   imageAlt: "A couple relaxing together at home in golden evening light",
   excerpt:
     "Long-term desire is not something you have. It is something you keep making, mostly out of attention and a little distance.",

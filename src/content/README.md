@@ -8,12 +8,13 @@ Welcome to the **HeartlinesHub** content engine. This guide contains everything 
 1. [Where Articles Are Saved](#1-where-articles-are-saved)
 2. [Golden Editorial Standards & Requirements](#2-golden-editorial-standards--requirements)
 3. [Step-by-Step: Adding a New Blog Post](#3-step-by-step-adding-a-new-blog-post)
-4. [Rich Block Types & Custom Styling Reference](#4-rich-block-types--custom-styling-reference)
-5. [Built-in Reader & Editorial Features](#5-built-in-reader--editorial-features)
-6. [SEO Optimization Master Checklist](#6-seo-optimization-master-checklist)
-7. [Google Search Console & Bing Setup](#7-google-search-console--bing-setup)
-8. [Google AdSense Setup](#8-google-adsense-setup)
-9. [Full Copy-Paste Blog Post Template](#9-full-copy-paste-blog-post-template)
+4. [Cloudinary Image Hosting & Credentials (Zero Local Storage)](#4-cloudinary-image-hosting--credentials-zero-local-storage)
+5. [Rich Block Types & Custom Styling Reference](#5-rich-block-types--custom-styling-reference)
+6. [Built-in Reader & Editorial Features](#6-built-in-reader--editorial-features)
+7. [SEO Optimization Master Checklist](#7-seo-optimization-master-checklist)
+8. [Google Search Console & Bing Setup](#8-google-search-console--bing-setup)
+9. [Google AdSense Setup](#9-google-adsense-setup)
+10. [GitHub Push & Personal Access Token](#10-github-push--personal-access-token)
 
 ---
 
@@ -39,6 +40,8 @@ To ensure every article published on **HeartlinesHub** ranks high on search engi
 - Avoid thin filler or fluff. Provide real psychological insights, conversational scripts, practical exercises, and clear examples.
 
 ### 🖼️ 2. Minimum 2+ Distinct High-Quality Clickable Images
+- **16:9 Aspect Ratio (YouTube Thumbnail Ratio):** Always use a standard **16:9 aspect ratio** (e.g., 1280×720 or 1920×1080) for all cover photos and inline editorial images to ensure consistent visual aesthetics and responsive display.
+- **Original High Quality:** Always upload and add images in **original crystal-clear quality/resolution** without heavy lossy compression or blurriness so they look razor-sharp on Retina displays and in lightbox zoom.
 - **Header Featured Image:** 1 high-resolution cover photo at the top of the post (`post.image`).
 - **Inline Editorial Images:** At least **1 to 2 distinct inline images** placed strategically between major sections (`t: "image"`).
 - **100% Unique Images (No Repetition):** Never reuse the same image across different articles or inside the same article.
@@ -61,7 +64,7 @@ To ensure every article published on **HeartlinesHub** ranks high on search engi
 ## 3. Step-by-Step: Adding a New Blog Post
 
 1. **Add your high-resolution images:**
-   Place your images in `src/assets/` (e.g. `src/assets/post-boundaries-cover.jpg` and `src/assets/post-boundaries-inline.jpg`).
+   Place your **16:9 ratio** images in `src/assets/` (e.g. `src/assets/post-boundaries-cover.jpg` and `src/assets/post-boundaries-inline.jpg`).
 
 2. **Create a new file in `src/content/posts/`** (e.g. `src/content/posts/how-to-set-boundaries.ts`):
    ```typescript
@@ -153,7 +156,67 @@ To ensure every article published on **HeartlinesHub** ranks high on search engi
 
 ---
 
-## 4. Rich Block Types & Custom Styling Reference
+## 4. Cloudinary Image Hosting & Credentials (Zero Local Storage)
+
+To avoid consuming device or phone storage, you can host all blog images directly on **Cloudinary** and paste the public HTTPS URLs into your posts.
+
+### 🔑 Cloudinary API Credentials
+```javascript
+const cloudinaryConfig = {
+  cloudName: 'dnsvnesix',
+  apiKey: '669344974766477',
+  apiSecret: 'aj55ngqhnrOo5icATgOpYKHsdOY',
+  uploadUrl: 'https://api.cloudinary.com/v1_1/dnsvnesix/image/upload'
+};
+```
+
+> [!IMPORTANT]
+> **Upload in Original Quality:** Always upload images in their **original resolution and uncompressed quality**. Cloudinary automatically delivers optimized formats (WebP/AVIF) over its global CDN while preserving razor-sharp visuals for lightbox zooming.
+
+### 🚀 How to Use Cloudinary URLs in Blog Posts
+When using Cloudinary image URLs, you **do not need to import files from `src/assets/`**. Just pass the URL string directly:
+
+```typescript
+import { SITE } from "@/config/site";
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "healthy-communication-habits",
+  title: "5 Healthy Communication Habits Every Couple Needs",
+  headline: "5 healthy communication habits every couple needs",
+  description: "Transform daily conversations with practical, compassionate communication strategies.",
+  category: "relationships",
+  date: "2026-08-20",
+  readingMinutes: 7,
+  // 🌟 Direct Cloudinary Cover Image URL (16:9 Aspect Ratio)
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1/heartlines/cover-communication.webp",
+  imageAlt: "Two people talking calmly over warm coffee in morning sunlight",
+  excerpt: "Gentle words spoken at the right moment can heal years of quiet misunderstanding.",
+  takeaways: [
+    "Speak from personal feelings rather than accusations.",
+    "Pause when emotional heart rates rise."
+  ],
+  keywords: ["relationship communication", "healthy habits", "couples dialogue"],
+  authorName: SITE.author,
+  authorRole: SITE.authorRole,
+  body: [
+    { t: "p", text: "Communication is the heartbeat of intimacy..." },
+    {
+      t: "image",
+      // 🌟 Direct Cloudinary Inline Image URL (16:9 Aspect Ratio)
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1/heartlines/inline-communication.webp",
+      alt: "Couple holding hands across a wooden table",
+      caption: "Small daily check-ins prevent deep emotional divides."
+    }
+  ]
+};
+
+export default post;
+```
+
+---
+
+## 5. Rich Block Types & Custom Styling Reference
 
 Build magazine-grade layouts with these block types inside the `body` array:
 
@@ -252,7 +315,7 @@ Variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
 
 ---
 
-## 5. Built-in Reader & Editorial Features
+## 6. Built-in Reader & Editorial Features
 
 - 🔍 **Interactive Image Lightbox:** Clicking any image (header or inline) opens a crystal-clear full-resolution zoom view.
 - 📊 **Reading Progress Bar:** Tracks scroll percentage smoothly at the very top.
@@ -265,7 +328,7 @@ Variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
 
 ---
 
-## 6. SEO Optimization Master Checklist
+## 7. SEO Optimization Master Checklist
 
 - [x] **Single `<h1>` Title Tag:** Automatic headline hierarchy.
 - [x] **Schema.org Structured Data (`BlogPosting`, `BreadcrumbList`, `FAQPage`):** Automatic Google rich snippets.
@@ -276,7 +339,7 @@ Variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
 
 ---
 
-## 7. Google Search Console & Bing Setup
+## 8. Google Search Console & Bing Setup
 
 1. **Google Search Console:**
    - Add property `https://heartlineshub.vercel.app/` (URL prefix).
@@ -292,7 +355,7 @@ Variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
 
 ---
 
-## 8. Google AdSense Setup
+## 9. Google AdSense Setup
 
 1. Paste your publisher ID into `src/config/site.ts`:
    ```typescript
@@ -303,3 +366,22 @@ Variants: `"tip"`, `"warning"`, `"info"`, `"highlight"`, `"custom"`.
    google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
    ```
 3. While `ADSENSE_PUBLISHER_ID` is empty, **no empty boxes or placeholders are shown to readers**. Once filled, clean ads appear without layout shifting (Zero CLS).
+
+---
+
+## 10. GitHub Push Configuration
+
+The local Git remote on this device is permanently authenticated using your Personal Access Token in `.git/config`. You do **not** need to enter your password or token every time you push.
+
+### 🚀 Standard Push Workflow
+```bash
+git add .
+git commit -m "Your article or update description"
+git push origin main
+```
+
+> [!NOTE]
+> If you ever clone this repository onto another machine or need to reconnect your token:
+> ```bash
+> git remote set-url origin https://<YOUR_GITHUB_USERNAME>:<YOUR_PERSONAL_ACCESS_TOKEN>@github.com/cashc17/sweet-advice-hub.git
+> ```

@@ -1,4 +1,3 @@
-import heroHands from "@/assets/hero-hands.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-06-21",
   readingMinutes: 6,
-  image: heroHands,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232654/heartlines/hero-hands.jpg",
   imageAlt: "Two hands loosely intertwined on a blush linen tablecloth beside a cup of tea",
   excerpt:
     "The useful part of love languages is not the categories. It is the discovery that your partner has been showing you love in a dialect you never learned to read.",

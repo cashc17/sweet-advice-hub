@@ -1,5 +1,3 @@
-import postValidationCover from "@/assets/post-validation-cover.jpg";
-import postValidationInline from "@/assets/post-validation-inline.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -12,7 +10,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-08-20",
   readingMinutes: 10,
-  image: postValidationCover,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232686/heartlines/post-validation-cover.jpg",
   imageAlt: "Two friends or partners engaged in an attentive, empathetic conversation in a warm cafe",
   excerpt:
     "We often rush to fix our partner's problems when what they truly crave is the profound safety of knowing their feelings make sense.",
@@ -98,7 +96,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: postValidationInline,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232690/heartlines/post-validation-inline.jpg",
       alt: "An open journal notebook with a fountain pen beside a warm cup of herbal lemon tea on a wooden table in morning light",
       caption:
         "Reflective pause and gentle curiosity create the spaciousness needed to listen without defensiveness.",

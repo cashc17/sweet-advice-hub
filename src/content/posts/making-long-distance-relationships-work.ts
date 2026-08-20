@@ -1,4 +1,3 @@
-import postDistance from "@/assets/post-distance.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-06-30",
   readingMinutes: 6,
-  image: postDistance,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232667/heartlines/post-distance.jpg",
   imageAlt: "A phone on a bedside table showing a late-night video call, warm fairy lights behind",
   excerpt:
     "The couples who survive long distance are not the ones who talk the most. They are the ones who know when it ends.",

@@ -1,4 +1,3 @@
-import postTrust from "@/assets/post-trust.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-07-19",
   readingMinutes: 8,
-  image: postTrust,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232682/heartlines/post-trust.jpg",
   imageAlt: "A handwritten letter, dried roses and a coffee cup on a deep plum table",
   excerpt:
     "An apology is the entry fee, not the repair. Here is what actually rebuilds trust, and how long it honestly takes.",

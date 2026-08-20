@@ -1,4 +1,3 @@
-import postBreakup from "@/assets/post-breakup.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "breakups",
   date: "2026-07-09",
   readingMinutes: 7,
-  image: postBreakup,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232661/heartlines/post-breakup.jpg",
   imageAlt: "A person holding a warm mug by a rain-streaked window",
   excerpt:
     "Breakup grief is real grief. It responds to the same things: time, routine, people, and not checking their profile at 1am.",

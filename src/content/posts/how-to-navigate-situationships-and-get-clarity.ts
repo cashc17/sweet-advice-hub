@@ -1,5 +1,3 @@
-import postSituationshipCover from "@/assets/post-situationship-cover.jpg";
-import postSituationshipInline from "@/assets/post-situationship-inline.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -12,7 +10,7 @@ export const post: Post = {
   category: "dating",
   date: "2026-08-16",
   readingMinutes: 8,
-  image: postSituationshipCover,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232677/heartlines/post-situationship-cover.jpg",
   imageAlt: "A cozy evening cafe table beside a rain-streaked window overlooking glowing city streetlights",
   excerpt:
     "An undefined relationship gives you all the emotional vulnerability of a partnership with none of the safety. Here is how to ask for clarity without fear or apology.",
@@ -99,7 +97,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: postSituationshipInline,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232681/heartlines/post-situationship-inline.jpg",
       alt: "A woman walking peacefully along a golden sunlit autumn park path with a warm coffee cup",
       caption:
         "Choosing self-respect over romantic ambiguity frees your energy to pursue relationships that offer genuine safety and reciprocal commitment.",

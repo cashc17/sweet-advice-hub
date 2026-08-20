@@ -1,5 +1,3 @@
-import postBoundariesCover from "@/assets/post-boundaries-cover.jpg";
-import postBoundariesInline from "@/assets/post-boundaries-inline.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -12,7 +10,7 @@ export const post: Post = {
   category: "self-love",
   date: "2026-08-16",
   readingMinutes: 9,
-  image: postBoundariesCover,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232658/heartlines/post-boundaries-cover.jpg",
   imageAlt: "A calm, serene morning tea table with a warm mug, open journal, and cozy blanket in soft sunlight",
   excerpt:
     "Setting boundaries is not about building walls or withholding love. It is about teaching the person you cherish how to safely hold your heart without burning you out.",
@@ -99,7 +97,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: postBoundariesInline,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232659/heartlines/post-boundaries-inline.jpg",
       alt: "Two people sitting calmly at a rustic wooden table with notebooks and warm tea cups",
       caption:
         "Calm, proactive conversations about personal limits create an atmosphere of mutual respect and psychological safety.",

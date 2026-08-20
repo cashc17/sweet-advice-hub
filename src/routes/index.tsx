@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import heroHands from "@/assets/hero-hands.jpg";
 import { AdSlot } from "@/components/ad-slot";
 import { PostCard } from "@/components/post-card";
 import { ADSENSE_SLOTS, SITE } from "@/config/site";
@@ -78,7 +77,7 @@ function Index() {
             </div>
           </div>
           <img
-            src={heroHands}
+            src={"https://res.cloudinary.com/dnsvnesix/image/upload/v1787232654/heartlines/hero-hands.jpg"}
             alt="Two hands loosely intertwined on a blush tablecloth beside a cup of tea"
             width={1600}
             height={1008}

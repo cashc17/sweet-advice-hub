@@ -1,4 +1,3 @@
-import postAttachment from "@/assets/post-attachment.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -11,7 +10,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-08-15",
   readingMinutes: 7,
-  image: postAttachment,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232656/heartlines/post-attachment.jpg",
   imageAlt: "Two warm ceramic mugs on a wooden table beside a journal in gentle morning sunlight",
   excerpt:
     "One partner seeks closer connection while the other retreats into distance. Here is why the push-pull dynamic happens, and how to create lasting emotional safety.",
@@ -88,7 +87,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: postAttachment,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232656/heartlines/post-attachment.jpg",
       alt: "Two coffee mugs and an open notebook on a rustic table in gentle morning light",
       caption:
         "Building emotional safety begins with calm, unhurried morning check-ins and mutual patience.",

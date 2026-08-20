@@ -1,5 +1,3 @@
-import heroHands from "@/assets/hero-hands.jpg";
-import postCommunication from "@/assets/post-communication.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -12,7 +10,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-07-28",
   readingMinutes: 7,
-  image: postCommunication,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232662/heartlines/post-communication.jpg",
   imageAlt: "A couple sitting close together on a sofa talking in warm evening light",
   excerpt:
     "Most couples do not have a communication problem. They have a timing problem, a tone problem, and a listening problem — and all three are fixable.",
@@ -89,7 +87,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: heroHands,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232654/heartlines/hero-hands.jpg",
       alt: "Two hands holding warm mugs together across a wooden table",
       caption:
         "Couples who prioritize unhurried daily conversation and undivided attention build greater emotional resilience during disagreements.",

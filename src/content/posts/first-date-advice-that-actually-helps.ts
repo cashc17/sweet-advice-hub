@@ -1,4 +1,3 @@
-import postDate from "@/assets/post-date.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "dating",
   date: "2026-05-16",
   readingMinutes: 6,
-  image: postDate,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232666/heartlines/post-date.jpg",
   imageAlt: "Two coffee cups and hands almost touching across a small cafe table",
   excerpt:
     "A first date is not an interview or a performance. It is a short, low-cost test of one question: do I want a second evening of this?",

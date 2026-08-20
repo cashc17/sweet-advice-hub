@@ -1,5 +1,3 @@
-import postJealousyCover from "@/assets/post-jealousy-cover.jpg";
-import postJealousyInline from "@/assets/post-jealousy-inline.jpg";
 import { SITE } from "@/config/site";
 import type { Post } from "../types";
 
@@ -12,7 +10,7 @@ export const post: Post = {
   category: "relationships",
   date: "2026-08-20",
   readingMinutes: 10,
-  image: postJealousyCover,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232669/heartlines/post-jealousy-cover.jpg",
   imageAlt: "A couple having a calm, heartfelt conversation on a cozy sofa in a softly lit living room",
   excerpt:
     "Jealousy is not a sign of broken love or a character flaw. It is a blinking dashboard light signaling an untended wound or an unvoiced emotional need.",
@@ -94,7 +92,7 @@ export const post: Post = {
     },
     {
       t: "image",
-      src: postJealousyInline,
+      src: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232674/heartlines/post-jealousy-inline.jpg",
       alt: "Two hands holding each other gently in a warm, reassuring grasp over cozy woven knit blankets",
       caption:
         "Replacing surveillance and suspicion with tender, honest dialogue transforms moments of acute insecurity into profound intimacy.",

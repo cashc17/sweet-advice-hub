@@ -1,4 +1,3 @@
-import postTrust from "@/assets/post-trust.jpg";
 import type { Post } from "../types";
 
 export const post: Post = {
@@ -10,7 +9,7 @@ export const post: Post = {
   category: "self-love",
   date: "2026-06-11",
   readingMinutes: 7,
-  image: postTrust,
+  image: "https://res.cloudinary.com/dnsvnesix/image/upload/v1787232682/heartlines/post-trust.jpg",
   imageAlt: "A handwritten note beside wilting roses on a dark surface",
   excerpt:
     "Not every irritating habit is a red flag. These are the patterns that are genuinely worth ending things over.",
